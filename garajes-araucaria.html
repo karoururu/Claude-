@@ -1,0 +1,767 @@
+<title>Garajes Araucaria</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: lámina técnica — plano a escala a la izquierda, panel de consulta a la derecha (misma familia que Planta Baja POLO+) */
+:root{
+  --paper:#FBFAF7; --paper-2:#F3F1EB; --panel:#FFFFFF;
+  --ink:#1C201E; --ink-2:#4B534F; --ink-3:#7C8480;
+  --rule:#D4D2CA; --rule-strong:#B3B1A8;
+  --wall:#9C9D97; --wall-ext:#3D423F; --col:#D8BD6A; --col-line:#7A6629;
+  --circ:#E6E5E0; --ramp-line:#8C8A80; --dirt:#C4C1B5; --grid:#E2E0D8;
+  --ta:#D3E2F4; --ta-line:#3B679A; --ta-ink:#1E4472;
+  --tb:#F7DEC4; --tb-line:#A8642C; --tb-ink:#74390E;
+  --free:#FFFFFF; --free-line:#A3A9A5; --free-ink:#7C8480;
+  --unk:#FBE6A6; --unk-line:#A57A00; --unk-ink:#6E5100;
+  --med:#DCCFF3; --med-line:#5B3FA0; --med-ink:#3E2879;
+  --z-core:#DCE0E7; --z-serv:#D2E1DA; --z-amen:#EFE5D6; --z-bici:#D6EDF2; --z-green:#CFE6C3;
+  --veh:#1F7A4D; --ped:#0E6E92; --sel:#D0284A; --accent:#B4552E;
+  --shadow:0 1px 2px rgba(28,32,30,.06), 0 8px 24px -12px rgba(28,32,30,.18);
+  --f-disp:"IBM Plex Sans Condensed","IBM Plex Sans","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#15181A; --paper-2:#1C2023; --panel:#1F2427;
+    --ink:#E9EBE8; --ink-2:#AEB5B2; --ink-3:#7E8785;
+    --rule:#343A3D; --rule-strong:#4A5154;
+    --wall:#6E716D; --wall-ext:#C9CDC9; --col:#B89A45; --col-line:#E3CB86;
+    --circ:#2A2F31; --ramp-line:#8C918C; --dirt:#4A4F4C; --grid:#2A2F32;
+    --ta:#24405E; --ta-line:#7FAEE0; --ta-ink:#CFE2F7;
+    --tb:#5A3A22; --tb-line:#E4A46C; --tb-ink:#F8DCC2;
+    --free:#1F2427; --free-line:#69716E; --free-ink:#8E9794;
+    --unk:#5E4A12; --unk-line:#E3BC4A; --unk-ink:#FBE6A6;
+    --med:#43346E; --med-line:#B9A2F0; --med-ink:#E6DBFF;
+    --z-core:#31373F; --z-serv:#2E413A; --z-amen:#463D31; --z-bici:#28474F; --z-green:#344B2D;
+    --veh:#5FCB91; --ped:#5CC3E6; --sel:#FF5C7A; --accent:#E6905F;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#15181A; --paper-2:#1C2023; --panel:#1F2427;
+  --ink:#E9EBE8; --ink-2:#AEB5B2; --ink-3:#7E8785;
+  --rule:#343A3D; --rule-strong:#4A5154;
+  --wall:#6E716D; --wall-ext:#C9CDC9; --col:#B89A45; --col-line:#E3CB86;
+  --circ:#2A2F31; --ramp-line:#8C918C; --dirt:#4A4F4C; --grid:#2A2F32;
+  --ta:#24405E; --ta-line:#7FAEE0; --ta-ink:#CFE2F7;
+  --tb:#5A3A22; --tb-line:#E4A46C; --tb-ink:#F8DCC2;
+  --free:#1F2427; --free-line:#69716E; --free-ink:#8E9794;
+  --unk:#5E4A12; --unk-line:#E3BC4A; --unk-ink:#FBE6A6;
+  --med:#43346E; --med-line:#B9A2F0; --med-ink:#E6DBFF;
+  --z-core:#31373F; --z-serv:#2E413A; --z-amen:#463D31; --z-bici:#28474F; --z-green:#344B2D;
+  --veh:#5FCB91; --ped:#5CC3E6; --sel:#FF5C7A; --accent:#E6905F;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.5}
+.wrap{max-width:1600px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:22px 40px}
+header.hd{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:flex-end;
+  border-bottom:1px solid var(--rule-strong);padding-bottom:14px;margin-bottom:16px}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:0 0 4px}
+h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(26px,4.4vw,40px);line-height:1.02;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.hd .meta{margin-left:auto;display:flex;gap:22px;flex-wrap:wrap}
+.meta dl{margin:0}
+.meta dt{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.meta dd{margin:2px 0 0;font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums}
+.lead{max-width:70ch;color:var(--ink-2);margin:0 0 14px}
+.lead b{color:var(--ink);font-weight:600}
+.stats{display:flex;flex-wrap:wrap;gap:6px 0;margin:0 0 18px;padding:0;list-style:none;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.stats li{display:flex;align-items:baseline;gap:8px;padding:8px 18px 8px 0;margin-right:18px;border-right:1px solid var(--rule)}
+.stats li:last-child{border-right:none}
+.stats b{font-family:var(--f-mono);font-weight:500;font-size:20px;font-variant-numeric:tabular-nums;line-height:1}
+.stats span{font-size:12.5px;color:var(--ink-2)}
+.stats .sw{align-self:center}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+@media (max-width:1020px){.cols{grid-template-columns:minmax(0,1fr)}}
+.plan{background:var(--panel);border:1px solid var(--rule);border-radius:3px;box-shadow:var(--shadow);overflow:hidden}
+.plan-bar{display:flex;align-items:center;gap:8px 10px;flex-wrap:wrap;padding:9px 12px;border-bottom:1px solid var(--rule);background:var(--paper-2)}
+.plan-bar .ttl{font-family:var(--f-disp);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:12px;color:var(--ink-2)}
+.vchip{font-family:var(--f-mono);font-size:11px;padding:2px 7px;border-radius:2px;background:var(--accent);color:var(--panel);letter-spacing:.06em}
+.plan-bar .sp{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+button.btn{font:inherit;font-size:12px;padding:4px 10px;border:1px solid var(--rule-strong);background:var(--panel);color:var(--ink);border-radius:2px;cursor:pointer}
+button.btn:hover{border-color:var(--ink-3)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--ped);outline-offset:1px}
+.seg{display:inline-flex;border:1px solid var(--rule-strong);border-radius:2px;overflow:hidden}
+.seg button{font:inherit;font-size:12px;padding:4px 9px;border:none;border-right:1px solid var(--rule-strong);background:var(--panel);color:var(--ink-2);cursor:pointer}
+.seg button:last-child{border-right:none}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--panel)}
+.search{display:flex;align-items:center}
+.search input{font:inherit;font-family:var(--f-mono);font-size:12.5px;width:13.5em;max-width:100%;padding:4px 8px;
+  border:1px solid var(--rule-strong);border-radius:2px;background:var(--panel);color:var(--ink);text-transform:uppercase}
+.search input::placeholder{text-transform:none;color:var(--ink-3)}
+svg#plan{display:block;width:100%;aspect-ratio:64/69;max-height:94vh;min-height:360px;max-width:100%;
+  background:var(--panel);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+svg#plan.drag{cursor:grabbing}
+.hint{font-size:12px;color:var(--ink-3);padding:7px 12px;border-top:1px solid var(--rule);background:var(--paper-2)}
+/* SVG */
+.bay rect{stroke-width:.06;transition:opacity .15s}
+.bay.s-A rect{fill:var(--ta);stroke:var(--ta-line)}
+.bay.s-B rect{fill:var(--tb);stroke:var(--tb-line)}
+.bay.s-free rect{fill:var(--free);stroke:var(--free-line);stroke-dasharray:.35 .2}
+.bay.s-unk rect{fill:var(--unk);stroke:var(--unk-line)}
+.bay{cursor:pointer}
+.bay:hover rect{stroke-width:.14}
+.dim{opacity:.28}
+.blk{cursor:pointer}
+.blk:hover{opacity:.85}
+.t-med{fill:var(--med);stroke:var(--med-line);stroke-width:.12}
+.t-core{fill:var(--z-core)} .t-serv{fill:var(--z-serv)} .t-amen{fill:var(--z-amen)}
+.t-bici{fill:var(--z-bici)} .t-green{fill:var(--z-green)}
+.t-core,.t-serv,.t-amen,.t-bici,.t-green{stroke:var(--rule-strong);stroke-width:.04}
+.lb-num{font-family:var(--f-mono);font-weight:500;fill:var(--ink-2)}
+.lb-apt{font-family:var(--f-disp);font-weight:700;letter-spacing:.01em}
+.s-A .lb-apt,.lb-apt.s-A{fill:var(--ta-ink)} .lb-apt.s-B{fill:var(--tb-ink)}
+.lb-apt.s-free{fill:var(--free-ink);font-weight:600;letter-spacing:.12em}
+.lb-apt.s-unk{fill:var(--unk-ink);font-weight:600}
+.lb-blk{font-family:var(--f-disp);font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--panel);stroke-width:.14;stroke-linejoin:round}
+.lb-med{fill:var(--med-ink);font-weight:700}
+.lb-small{font-family:var(--f-mono);fill:var(--ink-2);paint-order:stroke;stroke:var(--panel);stroke-width:.12}
+.lb-veh{font-family:var(--f-disp);font-weight:700;fill:var(--veh);paint-order:stroke;stroke:var(--panel);stroke-width:.16}
+.lb-ped{font-family:var(--f-disp);font-weight:600;fill:var(--ped);paint-order:stroke;stroke:var(--panel);stroke-width:.16}
+.lb-dirt{font-family:var(--f-mono);fill:var(--ink-3);letter-spacing:.2em}
+#g-labels,#g-walls,#g-cols,#g-sel,#g-acc text,#g-site text{pointer-events:none}
+.hidden{display:none}
+/* panel */
+aside{min-width:0}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:3px;box-shadow:var(--shadow);margin-bottom:16px}
+.card h2{font-family:var(--f-disp);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);
+  margin:0;padding:10px 13px;border-bottom:1px solid var(--rule);background:var(--paper-2);display:flex;gap:8px;align-items:baseline}
+.card h2 small{margin-left:auto;font-family:var(--f-mono);font-weight:400;letter-spacing:.04em;text-transform:none;color:var(--ink-3);font-size:11px}
+.card .bd{padding:11px 13px}
+.card.hero{border-color:var(--rule-strong)}
+.sw{display:inline-block;width:11px;height:11px;border:1px solid var(--wall-ext);vertical-align:-1px;border-radius:1px;flex:0 0 11px}
+.info .nm{font-family:var(--f-disp);font-weight:700;font-size:20px;line-height:1.1;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.info dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:10px 0 0}
+.info dt{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);align-self:center}
+.info dd{margin:0;font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:13px;min-width:0}
+.info .src{margin:10px 0 0;font-size:12.5px;color:var(--ink-2)}
+.info .empty{color:var(--ink-2);font-size:13px;margin:0}
+.info .empty b{color:var(--ink)}
+.pill{display:inline-block;font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  padding:2px 6px;border-radius:2px;border:1px solid currentColor;font-weight:500;line-height:1.3}
+.pill.A{color:var(--ta-line)} .pill.B{color:var(--tb-line)} .pill.free{color:var(--free-ink)} .pill.unk{color:var(--unk-line)}
+.pill.med{color:var(--med-line)} .pill.rot{color:var(--ped)} .pill.int{color:var(--accent)} .pill.live{color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font:inherit;font-family:var(--f-mono);font-size:12px;padding:1px 6px;border-radius:2px;cursor:pointer;
+  border:1px solid var(--rule-strong);background:var(--panel);color:var(--ink);font-variant-numeric:tabular-nums}
+.chip:hover{border-color:var(--ink-3)}
+.chip.A{background:var(--ta);border-color:var(--ta-line);color:var(--ta-ink)}
+.chip.B{background:var(--tb);border-color:var(--tb-line);color:var(--tb-ink)}
+.chip.free{border-style:dashed;color:var(--free-ink)}
+.chip.unk{background:var(--unk);border-color:var(--unk-line);color:var(--unk-ink)}
+.chip.on{outline:2px solid var(--sel);outline-offset:1px}
+.tot{display:grid;grid-template-columns:auto 1fr auto;gap:5px 10px;align-items:center;font-size:13px}
+.tot .n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right}
+.tot .bar{height:6px;background:var(--paper-2);border-radius:1px;overflow:hidden;display:flex}
+.tot .bar i{display:block;height:100%}
+.alist{max-height:460px;overflow:auto;margin:-11px -13px;padding:0}
+table.at{width:100%;border-collapse:collapse;font-size:12.5px}
+table.at td{padding:5px 13px 5px 0;border-bottom:1px solid var(--rule);vertical-align:middle}
+table.at td:first-child{padding-left:13px;white-space:nowrap}
+table.at td.n{text-align:right;font-family:var(--f-mono);color:var(--ink-3);font-variant-numeric:tabular-nums;white-space:nowrap}
+table.at tr.grp td{background:var(--paper-2);font-family:var(--f-disp);font-weight:700;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);position:sticky;top:0;z-index:1}
+table.at tr.on td{background:color-mix(in srgb,var(--sel) 10%,transparent)}
+.apt{font:inherit;font-family:var(--f-disp);font-weight:700;font-size:13.5px;background:none;border:none;color:var(--ink);cursor:pointer;padding:0}
+.apt:hover{text-decoration:underline}
+.lay{display:flex;flex-direction:column;gap:1px}
+.lay label{display:flex;align-items:center;gap:9px;cursor:pointer;padding:3px 2px;font-size:13px;border-radius:2px}
+.lay label:hover{background:var(--paper-2)}
+.lay input{accent-color:var(--ped);width:15px;height:15px;margin:0}
+.lg{display:grid;grid-template-columns:28px 1fr;gap:7px 9px;font-size:12.5px;color:var(--ink-2);align-items:center}
+.lg svg{display:block;width:28px;height:14px}
+.vitem{padding:10px 13px}
+.vitem .top{display:flex;align-items:baseline;gap:8px}
+.vitem .vn{font-family:var(--f-mono);font-weight:500;font-size:12.5px}
+.vitem .vd{font-family:var(--f-mono);font-size:10.5px;color:var(--ink-3);margin-left:auto;white-space:nowrap}
+.vitem .vt{font-family:var(--f-disp);font-weight:600;font-size:13.5px;margin-top:1px}
+.vchg{padding:0 13px 12px}
+.vchg h3{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:0 0 5px;font-weight:400}
+.vchg ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--ink-2)}
+.vchg li{margin-bottom:3px}
+.notes{margin-top:24px;border-top:1px solid var(--rule-strong);padding-top:16px;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.notes h3{font-family:var(--f-disp);font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin:0 0 6px}
+.notes ul{margin:0;padding-left:17px;color:var(--ink-2);font-size:13px}
+.notes li{margin-bottom:4px}
+@media (max-width:560px){
+  .stats li{padding-right:12px;margin-right:12px}
+  .stats b{font-size:17px}
+  .search input{width:11em}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+<header class="hd">
+  <div>
+    <p class="eyebrow">Araucaria · Obered S.A. — Lámina V01 · Planta sub-suelo</p>
+    <h1>Garajes Araucaria</h1>
+  </div>
+  <div class="meta">
+    <dl><dt>Nivel de piso</dt><dd>−2,30</dd></dl>
+    <dl><dt>Escala origen</dt><dd>1:100</dd></dl>
+    <dl><dt>Asignación</dt><dd>2023.08</dd></dl>
+    <dl><dt>Versiones</dt><dd id="vcount">1</dd></dl>
+  </div>
+</header>
+
+<p class="lead">Las cocheras, los muros, las columnas y la circulación están dibujados a escala desde el vector del PDF.
+Cada cochera lleva su <b>número</b> y el <b>apartamento asignado</b> (A = Torre A, B = Torre B). Las salas de
+<b>medidores</b> van resaltadas, el resto de los locales va como bloques. Tocá una cochera o buscá un apartamento
+para ver todas sus cocheras.</p>
+
+<ul class="stats" id="stats"></ul>
+
+<div class="cols">
+  <div style="min-width:0">
+    <div class="plan">
+      <div class="plan-bar">
+        <span class="ttl">Sub-suelo · cocheras</span>
+        <span class="vchip" id="vchip">v1</span>
+        <div class="seg" role="group" aria-label="Filtrar cocheras">
+          <button type="button" id="f-all" data-f="all" aria-pressed="true">Todas</button>
+          <button type="button" id="f-A" data-f="A" aria-pressed="false">Torre A</button>
+          <button type="button" id="f-B" data-f="B" aria-pressed="false">Torre B</button>
+          <button type="button" id="f-free" data-f="free" aria-pressed="false">Libres</button>
+        </div>
+        <span class="sp">
+          <label class="search" for="q"><input id="q" list="aptlist" autocomplete="off" spellcheck="false"
+            placeholder="Apto. o cochera (A202, 37)" aria-label="Buscar apartamento o cochera"></label>
+          <datalist id="aptlist"></datalist>
+          <button class="btn" id="zin" type="button" aria-label="Acercar">+</button>
+          <button class="btn" id="zout" type="button" aria-label="Alejar">−</button>
+          <button class="btn" id="zfit" type="button">Encuadrar</button>
+        </span>
+      </div>
+      <svg id="plan" viewBox="-2.4 -2.6 64 69" role="img" aria-label="Planta del sub-suelo con las 100 cocheras, su apartamento asignado, salas de medidores, muros e ingresos">
+        <defs>
+          <pattern id="grid5" width="5" height="5" patternUnits="userSpaceOnUse">
+            <path d="M5 0V5H0" fill="none" stroke="var(--grid)" stroke-width="0.05"/>
+          </pattern>
+          <pattern id="dirt" width="0.9" height="0.9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <rect width="0.9" height="0.9" fill="var(--paper)"/>
+            <line x1="0" y1="0" x2="0" y2="0.9" stroke="var(--dirt)" stroke-width="0.06"/>
+          </pattern>
+          <pattern id="ramp" width="0.55" height="0.55" patternUnits="userSpaceOnUse">
+            <rect width="0.55" height="0.55" fill="var(--circ)"/>
+            <line x1="0" y1="0" x2="0" y2="0.55" stroke="var(--ramp-line)" stroke-width="0.045"/>
+          </pattern>
+          <pattern id="grate" width="0.18" height="0.18" patternUnits="userSpaceOnUse">
+            <rect width="0.18" height="0.18" fill="var(--panel)"/>
+            <line x1="0" y1="0" x2="0" y2="0.18" stroke="var(--ink-3)" stroke-width="0.04"/>
+          </pattern>
+          <marker id="ah-veh" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+            <path d="M0 0L10 5L0 10Z" fill="var(--veh)"/>
+          </marker>
+        </defs>
+        <g id="vp">
+          <rect id="gridrect" x="-20" y="-5" width="85" height="75" fill="url(#grid5)"/>
+          <g id="g-site"></g>
+          <path id="g-circ" data-blk="circ" fill="var(--circ)" stroke="none"/>
+          <g id="g-ramps"></g>
+          <g id="g-blocks"></g>
+          <path id="g-green" fill="var(--z-green)" stroke="none" style="pointer-events:none"/>
+          <g id="g-bays"></g>
+          <g id="g-walls">
+            <path id="g-wint" fill="var(--wall)" stroke="var(--wall)" stroke-width="0.02"/>
+            <path id="g-wext" fill="var(--wall-ext)" stroke="var(--wall-ext)" stroke-width="0.02"/>
+            <g id="g-grill"></g>
+          </g>
+          <path id="g-cols" fill="var(--col)" stroke="var(--col-line)" stroke-width="0.05"/>
+          <g id="g-acc"></g>
+          <g id="g-sel"></g>
+          <g id="g-labels"></g>
+          <g id="g-live" class="hidden"></g>
+          <g id="g-deco"></g>
+        </g>
+      </svg>
+      <div class="hint">Arrastrá para mover, rueda o pellizco para acercar. Norte hacia la izquierda de la lámina, según el croquis de ubicación.</div>
+    </div>
+
+    <div class="notes">
+      <div>
+        <h3>Qué viene del PDF</h3>
+        <ul>
+          <li>100 cocheras con sus límites reales (líneas divisorias de la lámina): anchos de 2,30 a 3,70 m y fondos de 4,30 a 6,25 m. Las 52 y 53 tienen 8,92 m de fondo, para dos autos en fila.</li>
+          <li>Apartamento asignado según el rótulo de cada cochera en la versión «Garages actualizados» 2023.08.</li>
+          <li>Muro perimetral, muros interiores y 203 columnas, a escala 1:100.</li>
+          <li>Circulación vehicular de 6,00 m y las dos rampas de 3,65 m desde Máximo Tajes.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Lectura de la lámina</h3>
+        <ul>
+          <li>El croquis de ubicación tiene el norte hacia la izquierda: de ahí los ascensores «Norte» (izquierda) y «Tajes» (derecha, hacia la calle).</li>
+          <li>Torre A arriba, Torre B abajo; las cocheras con apartamento A o B se colorean según la torre.</li>
+          <li>Sobre los bordes superior e inferior el perímetro no es muro: son rejillas de iluminación y ventilación.</li>
+          <li>Hacia la izquierda y la derecha el muro perimetral contiene terreno sin excavar (retiro posterior y frontal de 7 m).</li>
+        </ul>
+      </div>
+      <div>
+        <h3>A verificar</h3>
+        <ul>
+          <li>La cochera 59 no tiene apartamento rotulado.</li>
+          <li>El plano no indica el sentido de circulación de las rampas: las marco como ingreso y egreso.</li>
+          <li>20 rótulos de apartamento son texto editado sobre el original (probable actualización 2023). Activá la capa «Rótulos editados» para verlos.</li>
+          <li>Las bauleras colgadas sobre el fondo de algunas cocheras no se dibujaron.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <aside>
+    <div class="card hero">
+      <h2>Selección</h2>
+      <div class="bd info" id="info"></div>
+    </div>
+    <div class="card">
+      <h2>Resumen por torre</h2>
+      <div class="bd" id="sum"></div>
+    </div>
+    <div class="card">
+      <h2>Apartamentos <small id="acount"></small></h2>
+      <div class="bd"><div class="alist"><table class="at" id="atab"><tbody></tbody></table></div></div>
+    </div>
+    <div class="card">
+      <h2>Capas</h2>
+      <div class="bd lay">
+        <label><input type="checkbox" id="l-bays" checked> Cocheras</label>
+        <label><input type="checkbox" id="l-nums" checked> Número de cochera</label>
+        <label><input type="checkbox" id="l-apts" checked> Apartamento asignado</label>
+        <label><input type="checkbox" id="l-med" checked> Salas de medidores</label>
+        <label><input type="checkbox" id="l-blk" checked> Otras áreas (bloques)</label>
+        <label><input type="checkbox" id="l-circ" checked> Circulación vehicular y rampas</label>
+        <label><input type="checkbox" id="l-acc" checked> Ingresos</label>
+        <label><input type="checkbox" id="l-walls" checked> Muros</label>
+        <label><input type="checkbox" id="l-cols" checked> Columnas</label>
+        <label><input type="checkbox" id="l-site" checked> Terreno sin excavar</label>
+        <label><input type="checkbox" id="l-live"> Rótulos editados (2023)</label>
+        <label><input type="checkbox" id="l-grid" checked> Grilla 5 m</label>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Convenciones</h2>
+      <div class="bd lg" id="legend"></div>
+    </div>
+    <div class="card">
+      <h2>Versiones</h2>
+      <div id="vlist"></div>
+    </div>
+  </aside>
+</div>
+</div>
+
+<script>
+var D={"bays":[{"n":"01","apt":"A104","r":[0.25,0.25,5.05,2.69],"e":"r","g":1,"live":0},{"n":"02","apt":"A102","r":[0.25,2.69,5.05,5.13],"e":"r","g":1,"live":0},{"n":"03","apt":"A004","r":[0.25,5.13,5.05,8.09],"e":"r","g":1,"live":0},{"n":"04","apt":"A202","r":[0.25,8.09,5.05,11.05],"e":"r","g":1,"live":0},{"n":"05","apt":"A201","r":[0.25,11.05,5.05,14.75],"e":"r","g":1,"live":0},{"n":"06","apt":"A002","r":[0.25,14.75,5.05,18.45],"e":"r","g":1,"live":0},{"n":"07","apt":"A001","r":[0.25,18.45,5.05,21.41],"e":"r","g":1,"live":0},{"n":"08","apt":"A002","r":[0.25,21.41,5.05,24.37],"e":"r","g":1,"live":0},{"n":"09","apt":"A101","r":[0.25,24.37,5.05,26.74],"e":"r","g":1,"live":0},{"n":"10","apt":"A103","r":[0.25,26.74,5.05,29.1],"e":"r","g":1,"live":0},{"n":"100","apt":"A007","r":[45.37,6.35,50.17,8.75],"e":"l","g":9,"live":0},{"n":"11","apt":"LIBRE","r":[0.25,29.1,5.05,31.4],"e":"r","g":1,"live":0},{"n":"12","apt":"B008","r":[0.25,31.4,5.05,33.7],"e":"r","g":1,"live":0},{"n":"13","apt":"B105","r":[0.25,33.7,5.05,36.06],"e":"r","g":1,"live":0},{"n":"14","apt":"B106","r":[0.25,36.06,5.05,38.42],"e":"r","g":1,"live":0},{"n":"15","apt":"B204","r":[0.25,38.42,5.05,41.39],"e":"r","g":1,"live":0},{"n":"16","apt":"B107","r":[0.25,41.39,5.05,44.35],"e":"r","g":1,"live":0},{"n":"17","apt":"B108","r":[0.25,44.35,5.05,48.05],"e":"r","g":1,"live":0},{"n":"18","apt":"B006","r":[0.25,48.05,5.05,51.75],"e":"r","g":1,"live":0},{"n":"19","apt":"B203","r":[0.25,51.75,5.05,54.71],"e":"r","g":1,"live":0},{"n":"20","apt":"B007","r":[0.25,54.71,5.05,57.68],"e":"r","g":1,"live":0},{"n":"21","apt":"B009","r":[0.25,57.68,5.05,60.11],"e":"r","g":1,"live":0},{"n":"22","apt":"B005","r":[0.25,60.11,5.05,62.55],"e":"r","g":1,"live":0},{"n":"23","apt":"B007","r":[11.05,54.65,15.85,57.56],"e":"l","g":2,"live":0},{"n":"24","apt":"B205","r":[11.05,51.75,15.85,54.65],"e":"l","g":2,"live":0},{"n":"25","apt":"B001","r":[11.05,44.35,15.85,46.75],"e":"l","g":2,"live":0},{"n":"26","apt":"B002","r":[11.05,41.44,15.85,44.35],"e":"l","g":2,"live":0},{"n":"27","apt":"B204","r":[11.05,38.54,15.85,41.44],"e":"l","g":2,"live":0},{"n":"28","apt":"B108","r":[11.05,36.12,15.85,38.54],"e":"l","g":2,"live":0},{"n":"29","apt":"B107","r":[11.05,33.7,15.85,36.12],"e":"l","g":2,"live":0},{"n":"30","apt":"B008","r":[11.05,31.4,15.85,33.7],"e":"l","g":2,"live":0},{"n":"31","apt":"A101","r":[11.05,29.1,15.85,31.4],"e":"l","g":2,"live":1},{"n":"32","apt":"A103","r":[11.05,26.68,15.85,29.1],"e":"l","g":2,"live":0},{"n":"33","apt":"A003","r":[11.05,24.26,15.85,26.68],"e":"l","g":2,"live":0},{"n":"34","apt":"A009","r":[11.05,21.4,15.85,24.26],"e":"l","g":2,"live":0},{"n":"35","apt":"A003","r":[11.05,18.45,15.85,21.4],"e":"l","g":2,"live":0},{"n":"36","apt":"LIBRE","r":[11.05,16.05,15.85,18.45],"e":"l","g":2,"live":0},{"n":"37","apt":"A202","r":[11.05,8.15,15.7,11.05],"e":"l","g":2,"live":0},{"n":"38","apt":"A202","r":[11.05,5.24,15.7,8.15],"e":"l","g":2,"live":0},{"n":"39","apt":"A102","r":[15.85,6.25,18.55,12.5],"e":"t","g":3,"live":0},{"n":"40","apt":"LIBRE","r":[18.55,6.25,21.73,12.5],"e":"t","g":3,"live":0},{"n":"41","apt":"LIBRE","r":[21.73,6.25,25.26,12.5],"e":"t","g":3,"live":0},{"n":"42","apt":"B007","r":[25.26,6.25,28.8,12.5],"e":"t","g":3,"live":0},{"n":"43","apt":"A205","r":[28.8,6.25,31.97,12.5],"e":"t","g":3,"live":0},{"n":"44","apt":"LIBRE","r":[31.97,6.25,34.57,12.5],"e":"t","g":3,"live":0},{"n":"45","apt":"A004","r":[16.0,22.93,21.79,25.34],"e":"r","g":4,"live":1},{"n":"46","apt":"A104","r":[16.0,25.34,21.79,27.74],"e":"r","g":4,"live":1},{"n":"47","apt":"LIBRE","r":[16.0,27.74,21.79,30.14],"e":"r","g":4,"live":0},{"n":"48","apt":"LIBRE","r":[16.0,30.14,21.79,32.54],"e":"r","g":4,"live":0},{"n":"49","apt":"LIBRE","r":[16.0,32.54,21.79,34.94],"e":"r","g":4,"live":0},{"n":"50","apt":"B106","r":[16.0,34.94,21.79,37.37],"e":"r","g":4,"live":1},{"n":"51","apt":"B006","r":[16.0,37.37,21.79,39.85],"e":"r","g":4,"live":1},{"n":"52","apt":"B205","r":[15.85,50.3,24.77,53.18],"e":"r","g":5,"live":0},{"n":"53","apt":"B205","r":[15.85,53.18,24.77,56.07],"e":"r","g":5,"live":0},{"n":"54","apt":"B202","r":[30.77,53.18,35.07,56.07],"e":"l","g":6,"live":1},{"n":"55","apt":"B105","r":[30.77,50.3,35.07,53.18],"e":"l","g":6,"live":1},{"n":"56","apt":"B004","r":[30.77,39.95,35.07,42.93],"e":"l","g":7,"live":1},{"n":"57","apt":"B005","r":[30.77,42.93,35.07,45.86],"e":"l","g":7,"live":1},{"n":"58","apt":"B104","r":[30.77,37.33,35.07,39.95],"e":"l","g":7,"live":1},{"n":"59","apt":"?","r":[30.77,34.94,35.07,37.33],"e":"l","g":7,"live":0},{"n":"60","apt":"B201","r":[28.72,32.56,34.57,34.94],"e":"l","g":7,"live":0},{"n":"61","apt":"B201","r":[28.72,30.13,34.57,32.56],"e":"l","g":7,"live":0},{"n":"62","apt":"B201","r":[28.72,27.74,34.57,30.13],"e":"l","g":7,"live":0},{"n":"63","apt":"LIBRE","r":[28.72,25.34,34.57,27.74],"e":"l","g":7,"live":0},{"n":"64","apt":"LIBRE","r":[28.72,22.93,34.57,25.34],"e":"l","g":7,"live":0},{"n":"65","apt":"LIBRE","r":[34.72,7.7,39.37,10.1],"e":"r","g":8,"live":0},{"n":"66","apt":"A203","r":[34.72,10.1,39.37,12.5],"e":"r","g":8,"live":1},{"n":"67","apt":"A106","r":[34.57,16.94,39.37,19.4],"e":"r","g":8,"live":1},{"n":"68","apt":"A105","r":[34.57,19.4,39.37,21.87],"e":"r","g":8,"live":1},{"n":"69","apt":"A005","r":[34.57,21.87,39.37,24.35],"e":"r","g":8,"live":1},{"n":"70","apt":"A006","r":[34.57,24.35,39.37,26.72],"e":"r","g":8,"live":1},{"n":"71","apt":"A008","r":[34.57,26.72,39.37,29.09],"e":"r","g":8,"live":1},{"n":"72","apt":"A108","r":[34.57,29.09,39.37,31.4],"e":"r","g":8,"live":0},{"n":"73","apt":"A109","r":[34.57,31.4,39.37,33.73],"e":"r","g":8,"live":0},{"n":"74","apt":"B109","r":[35.07,33.73,39.37,36.12],"e":"r","g":8,"live":1},{"n":"75","apt":"B101","r":[35.07,36.12,39.37,38.45],"e":"r","g":8,"live":1},{"n":"76","apt":"B102","r":[35.07,38.45,39.37,40.87],"e":"r","g":8,"live":1},{"n":"77","apt":"LIBRE","r":[35.07,40.87,39.37,43.37],"e":"r","g":8,"live":0},{"n":"78","apt":"LIBRE","r":[35.07,43.37,39.37,45.86],"e":"r","g":8,"live":0},{"n":"79","apt":"B002","r":[35.07,50.3,39.37,52.7],"e":"r","g":8,"live":1},{"n":"80","apt":"LIBRE","r":[35.07,52.7,39.37,55.1],"e":"r","g":8,"live":0},{"n":"81","apt":"B003","r":[45.37,54.05,50.17,56.45],"e":"l","g":9,"live":0},{"n":"82","apt":"B103","r":[45.37,51.65,50.17,54.05],"e":"l","g":9,"live":0},{"n":"83","apt":"B102","r":[45.37,49.25,50.17,51.65],"e":"l","g":9,"live":0},{"n":"84","apt":"B004","r":[45.37,46.85,50.17,49.25],"e":"l","g":9,"live":0},{"n":"85","apt":"B104","r":[45.37,44.45,50.17,46.85],"e":"l","g":9,"live":0},{"n":"86","apt":"B201","r":[45.37,41.44,50.17,44.45],"e":"l","g":9,"live":0},{"n":"87","apt":"B202","r":[45.37,38.42,50.17,41.44],"e":"l","g":9,"live":0},{"n":"88","apt":"B101","r":[45.37,36.06,50.17,38.42],"e":"l","g":9,"live":0},{"n":"89","apt":"B109","r":[45.37,33.7,50.17,36.06],"e":"l","g":9,"live":0},{"n":"90","apt":"A109","r":[45.37,31.4,50.17,33.7],"e":"l","g":9,"live":0},{"n":"91","apt":"A108","r":[45.37,29.1,50.17,31.4],"e":"l","g":9,"live":0},{"n":"92","apt":"A105","r":[45.37,26.73,50.17,29.1],"e":"l","g":9,"live":0},{"n":"93","apt":"A106","r":[45.37,24.35,50.17,26.73],"e":"l","g":9,"live":0},{"n":"94","apt":"A204","r":[45.37,21.35,50.17,24.35],"e":"l","g":9,"live":0},{"n":"95","apt":"A006","r":[45.37,18.35,50.17,21.35],"e":"l","g":9,"live":0},{"n":"96","apt":"A008","r":[45.37,15.95,50.17,18.35],"e":"l","g":9,"live":0},{"n":"97","apt":"A005","r":[45.37,13.55,50.17,15.95],"e":"l","g":9,"live":0},{"n":"98","apt":"A203","r":[45.37,11.15,50.17,13.55],"e":"l","g":9,"live":0},{"n":"99","apt":"A107","r":[45.37,8.75,50.17,11.15],"e":"l","g":9,"live":0}],"blocks":[{"id":"med-a","n":"Sala de medidores · Torre A","L":["MEDIDORES","TORRE A"],"t":"med","rects":[[36.17,5.2,39.37,7.55]],"rotulado":1,"note":"Rotulada «Medidores» en el plano. Puerta hacia la circulación superior, pegada a la cochera 65."},{"id":"med-b","n":"Sala de medidores · Torre B","L":["MEDIDORES","TORRE B"],"t":"med","rects":[[36.22,55.25,39.37,57.6]],"rotulado":1,"note":"Rotulada «Medidores» en el plano. Puerta hacia la circulación inferior, debajo de la cochera 80."},{"id":"cdeb","n":"Corrientes débiles","L":["CORRIENTES","DÉBILES"],"t":"serv","rects":[[45.52,4.05,50.17,6.2]],"rotulado":1,"note":"Rotulado «Corrientes dev.» en el plano. Puerta hacia la rampa de acceso Torre A."},{"id":"vest-m","n":"Vestuario masculino","L":["VESTUARIO M."],"t":"amen","rects":[[45.37,56.6,50.17,58.75]],"rotulado":1,"note":"Rotulado «Vestuario M.», con inodoro, lavatorio y ducha."},{"id":"vest-f","n":"Vestuario femenino","L":["VESTUARIO","FEMENINO"],"t":"amen","rot":1,"rects":[[16.0,40.05,18.7,45.85]],"rotulado":1},{"id":"laundry","n":"Laundry","L":["LAUNDRY"],"t":"amen","rot":1,"rects":[[18.85,40.05,20.65,45.85]],"rotulado":1},{"id":"gym","n":"Gym","L":["GYM"],"t":"amen","rects":[[18.56,16.76,25.13,22.93]],"rotulado":1},{"id":"agua","n":"Reserva de agua","L":["RESERVA","DE AGUA"],"t":"serv","rects":[[29.77,16.76,34.57,22.93]],"rotulado":1,"note":"Dos tanques; capacidad rotulada 35 m³."},{"id":"bomba","n":"Bomba de incendio","L":["BOMBA","INCENDIO"],"t":"serv","rects":[[16.0,56.22,17.97,57.75]],"rotulado":1},{"id":"bici","n":"Bicicletero","L":["BICICLETERO"],"t":"bici","rot":1,"rects":[[16.0,16.76,18.53,22.93]],"rotulado":1,"note":"Rotulado «Bicicleteros», al oeste del gym."},{"id":"moto-n","n":"Motos y bicicletas · lado Norte","L":["MOTOS Y","BICICLETAS"],"t":"bici","rotulado":1,"p":[[18.12,56.24],[25.82,56.24],[25.75,56.59],[25.56,57.0],[25.26,57.35],[24.87,57.6],[24.32,57.75],[18.12,57.75]],"note":"Bajo las cocheras 52 y 53, detrás de un muro de 1,60 m de altura. Esquina curva hacia la circulación central."},{"id":"moto-t","n":"Motos y bicicletas · lado Tajes","L":["MOTOS Y","BICICLETAS"],"t":"bici","rotulado":1,"interp":1,"rects":[[30.77,56.29,36.02,57.75]],"note":"Bajo las cocheras 54 y 55. El plano no cierra el borde inferior: tomé la misma profundidad que el lado Norte."},{"id":"luc-gym","n":"Lucernario junto al gym","L":["LUCERNARIO"],"t":"green","rects":[[25.13,16.76,29.77,22.93]],"rotulado":1},{"id":"luc-lau","n":"Lucernario junto al laundry","L":["LUCERNARIO"],"t":"green","rects":[[20.65,39.85,25.52,46.04]],"rotulado":1},{"id":"core-a","n":"Núcleo Torre A","L":["NÚCLEO TORRE A"],"t":"core","lc":[20.72,15.81],"rects":[[11.05,11.05,15.85,16.05],[15.85,12.5,34.57,16.76],[34.57,12.5,39.37,16.94]],"note":"Hall con los ascensores Norte A y Tajes A, la escalera y dos lucernarios. Incluye la zona de bicicletas junto al ascensor Norte A."},{"id":"core-b","n":"Núcleo Torre B","L":["NÚCLEO TORRE B"],"t":"core","lc":[20.72,46.4],"rects":[[11.05,46.75,15.85,51.75],[15.85,46.04,25.87,50.3],[30.77,45.86,39.37,50.3]],"note":"Hall con los ascensores Norte B y Tajes B y la escalera. La circulación vehicular central atraviesa el núcleo entre la escalera y el ascensor Tajes B."}],"ped":[{"id":"asc-na","n":"Ascensor Norte A","k":"asc","r":[16.0,12.75,18.15,14.7],"lab":[15.07,13.73],"anc":"end"},{"id":"asc-ta","n":"Ascensor Tajes A","k":"asc","r":[32.37,12.75,34.57,14.71],"lab":[35.54,14.22],"anc":"start"},{"id":"esc-a","n":"Escalera Torre A","k":"esc","r":[24.9,12.92,27.32,14.82],"lab":[26.11,15.81],"anc":"middle"},{"id":"asc-nb","n":"Ascensor Norte B","k":"asc","r":[16.0,48.1,18.15,50.05],"lab":[15.07,49.08],"anc":"end"},{"id":"asc-tb","n":"Ascensor Tajes B","k":"asc","r":[32.37,48.1,34.57,50.05],"lab":[35.54,49.08],"anc":"start"},{"id":"esc-b","n":"Escalera Torre B","k":"esc","r":[23.05,47.98,25.69,49.93],"lab":[22.76,49.15],"anc":"end"}],"ramps":[{"id":"rampa-a","n":"Acceso vehicular · Torre A","slope":"15 %","p":[[45.59,0.25],[57.04,0.25],[56.07,3.9],[45.59,3.9]],"grate":[45.37,0.25,45.59,3.9],"cy":2.07,"note":"Rampa al 15 % de 3,65 m de ancho, desde Máximo Tajes. El plano no indica si es de entrada, de salida o doble sentido."},{"id":"rampa-b","n":"Acceso vehicular · Torre B","slope":"19 %","p":[[45.59,58.9],[56.07,58.9],[57.04,62.55],[45.59,62.55]],"grate":[45.37,58.9,45.59,62.55],"cy":60.73,"note":"Rampa al 19 % de 3,65 m de ancho, desde Máximo Tajes. El plano no indica si es de entrada, de salida o doble sentido."}],"site":{"dirtW":[-16.98,-1.1,0.0,65.69],"dirtE":[50.36,4.15,59.02,58.65],"grills":[[15.97,0.0,34.56,0.25],[15.97,62.55,34.56,62.8]],"outer":[0.0,0.0,50.36,62.8]},"circ_m2":1357.2,"ramp_out_m2":46.6};
+var G={"wext":"M34.56 62.80L59.02 62.80L59.02 62.55L34.56 62.55ZM34.56 0.00L34.56 0.25L57.04 0.25L57.10 0.00ZM50.17 4.05L50.17 6.20L50.07 6.20L50.07 6.35L50.17 6.35L50.17 56.45L50.07 56.45L50.07 56.60L50.17 56.60L50.17 58.75L50.07 58.75L50.07 58.90L56.07 58.90L56.00 58.65L50.36 58.65L50.36 4.15L56.00 4.15L56.07 3.90L50.07 3.90L50.07 4.05ZM31.38 62.55L31.38 62.81L31.86 62.81L31.86 62.55ZM31.38 -0.01L31.38 0.25L31.86 0.25L31.86 -0.01ZM28.20 62.55L28.20 62.81L28.68 62.81L28.68 62.55ZM28.20 0.25L28.68 0.25L28.68 -0.01L28.20 -0.01ZM25.03 62.55L25.03 62.81L25.50 62.81L25.50 62.55ZM25.03 0.25L25.50 0.25L25.50 -0.01L25.03 -0.01ZM21.85 62.55L21.85 62.81L22.33 62.81L22.33 62.55ZM21.85 -0.01L21.85 0.25L22.33 0.25L22.33 -0.01ZM18.67 62.55L18.67 62.81L19.15 62.81L19.15 62.55ZM18.67 -0.01L18.67 0.25L19.15 0.25L19.15 -0.01ZM0.00 0.00L0.00 62.80L15.97 62.80L15.97 62.55L0.25 62.55L0.25 0.25L15.97 0.25L15.97 0.00Z","wint":"M45.37 3.90L45.37 5.25L45.52 5.25L45.52 4.05L50.07 4.05L50.07 3.90ZM45.52 6.20L45.52 6.15L45.37 6.15L45.37 6.35L50.07 6.35L50.07 6.20ZM50.07 56.45L45.37 56.45L45.37 56.60L48.72 56.60L48.72 57.10L48.87 57.10L48.87 56.60L50.07 56.60ZM49.27 58.75L49.27 58.90L50.07 58.90L50.07 58.75ZM45.37 57.55L45.37 58.90L48.87 58.90L48.87 57.90L48.72 57.90L48.72 58.75L47.32 58.75L47.32 57.40L47.17 57.40L47.17 57.55L46.21 57.55L46.21 57.80L47.17 57.80L47.17 58.75L45.52 58.75L45.52 57.55ZM36.02 55.10L36.02 57.75L39.57 57.75L39.57 56.15L39.37 56.15L39.37 57.60L36.22 57.60L36.22 55.25L37.12 55.25L37.16 55.25L37.21 55.25L38.69 55.25L38.70 55.25L39.57 55.25L39.57 55.10ZM36.02 5.05L36.02 7.70L39.57 7.70L39.57 7.55L36.17 7.55L36.17 5.21L39.37 5.20L39.37 6.65L39.57 6.65L39.57 5.05ZM32.37 50.05L32.37 50.30L34.57 50.30L34.57 50.05ZM32.37 47.90L32.37 48.10L34.57 48.10L34.57 47.90ZM32.37 14.71L32.37 14.90L34.57 14.90L34.57 14.71ZM32.37 12.50L32.37 12.75L34.57 12.75L34.57 12.50ZM14.85 46.75L14.85 46.90L15.99 46.90L16.00 44.85L17.15 44.85L17.15 44.70L16.00 44.70L15.99 42.20L16.49 42.20L16.49 42.10L15.99 42.10L16.00 40.05L17.30 40.05L17.29 42.20L17.39 42.20L17.40 40.05L18.70 40.05L18.69 42.10L18.19 42.10L18.19 42.20L18.69 42.20L18.70 44.45L18.70 45.85L17.00 45.85L17.00 46.05L20.65 46.05L20.65 45.85L18.85 45.85L18.85 40.05L21.80 40.05L21.80 39.85L15.85 39.85L15.85 46.75ZM17.50 16.75L17.50 16.95L18.58 16.95L18.58 16.75ZM15.95 50.05L15.95 50.30L18.15 50.30L18.15 50.05ZM15.95 47.90L15.95 48.10L18.15 48.10L18.15 47.90ZM15.95 14.70L15.95 14.90L18.15 14.90L18.15 14.70ZM15.95 12.50L15.95 12.75L18.15 12.75L18.15 12.50ZM15.85 57.75L16.00 57.75L16.00 56.22L17.97 56.22L17.97 57.75L18.12 57.75L18.12 56.06L16.00 56.06L16.00 54.75L15.85 54.75ZM14.65 24.33L14.65 24.48L16.00 24.48L16.00 15.90L14.85 15.90L14.85 16.05L15.85 16.05L15.85 24.32Z","cols":"M4.20 5.24L4.20 5.02L3.10 5.02L3.10 5.24ZM0.24 7.60L0.24 6.70L0.07 6.70L0.07 7.60ZM4.45 10.89L4.45 11.19L5.05 11.19L5.05 10.89ZM0.24 11.55L0.24 10.65L0.07 10.65L0.07 11.55ZM11.04 14.78L11.05 14.83L11.05 14.66L11.04 14.70ZM11.07 14.86L11.07 14.63L11.05 14.66L11.05 14.83ZM11.07 14.86L11.11 14.90L11.11 14.59L11.07 14.63ZM5.05 14.90L5.05 14.60L4.45 14.60L4.45 14.90ZM1.37 14.90L1.77 14.90L1.77 14.60L1.37 14.60ZM0.07 17.95L0.07 18.85L0.24 18.85L0.24 17.95ZM4.45 18.30L4.45 18.60L5.05 18.60L5.05 18.30ZM0.24 22.80L0.24 21.90L0.07 21.90L0.07 22.80ZM4.20 24.48L4.20 24.27L3.10 24.27L3.10 24.48ZM4.45 29.19L5.05 29.19L5.05 28.99L4.45 28.99ZM5.05 33.83L5.05 33.63L4.45 33.63L4.45 33.83ZM4.20 38.53L4.20 38.31L3.10 38.31L3.10 38.53ZM0.24 40.90L0.24 40.00L0.07 40.00L0.07 40.90ZM4.45 44.20L4.45 44.50L5.05 44.50L5.05 44.20ZM0.07 44.85L0.24 44.85L0.24 43.95L0.07 43.95ZM11.04 48.01L11.04 48.05L11.04 48.08L11.05 48.14L11.05 47.97ZM11.07 47.94L11.05 47.97L11.05 48.14L11.06 48.16L11.07 48.17ZM11.06 48.16L11.06 48.16L11.06 48.16ZM11.07 48.17L11.11 48.21L11.11 47.90L11.07 47.94ZM4.45 48.20L5.05 48.20L5.05 47.90L4.45 47.90ZM1.77 48.20L1.77 47.90L1.37 47.90L1.37 48.20ZM0.24 51.25L0.07 51.25L0.07 52.15L0.24 52.15ZM5.05 51.91L5.05 51.61L4.45 51.61L4.45 51.91ZM0.24 56.10L0.24 55.20L0.07 55.20L0.07 56.10ZM3.75 57.79L4.20 57.79L4.20 57.57L3.75 57.57ZM11.37 5.47L11.37 5.02L10.97 5.02L10.97 5.47ZM11.11 14.90L11.18 14.94L11.26 14.95L11.29 14.94L11.36 14.90L11.36 14.59L11.34 14.58L11.27 14.55L11.24 14.55L11.20 14.55L11.16 14.56L11.11 14.59ZM11.34 14.58L11.34 14.58L11.34 14.58ZM11.36 14.90L11.41 14.85L11.41 14.65L11.39 14.62L11.36 14.59ZM11.37 24.04L10.97 24.04L10.97 24.48L11.37 24.48ZM11.05 28.99L11.05 29.19L11.65 29.19L11.65 28.99ZM11.65 33.83L11.65 33.63L11.05 33.63L11.05 33.83ZM11.27 38.77L11.27 38.31L10.97 38.31L10.97 38.77ZM11.16 48.24L11.22 48.26L11.26 48.26L11.31 48.24L11.36 48.21L11.36 47.90L11.33 47.88L11.29 47.86L11.24 47.85L11.20 47.86L11.16 47.87L11.11 47.90L11.11 48.21ZM11.36 48.21L11.41 48.16L11.41 47.96L11.39 47.92L11.36 47.90ZM11.37 57.79L11.37 57.34L10.97 57.34L10.97 57.79ZM19.13 0.24L19.13 0.05L18.68 0.05L18.68 0.24ZM15.50 0.05L15.50 0.24L15.95 0.24L15.95 0.05ZM14.65 5.47L14.65 5.02L14.25 5.02L14.25 5.47ZM18.75 6.85L18.75 6.45L18.35 6.45L18.35 6.85ZM11.34 10.97L11.34 11.13L12.14 11.13L12.14 10.97ZM18.14 12.57L15.97 12.57L15.97 12.73L18.14 12.73ZM11.44 14.74L11.43 14.70L11.43 14.79L11.44 14.78ZM11.43 14.69L11.41 14.65L11.41 14.85L11.43 14.81ZM11.43 14.70L11.43 14.69L11.43 14.81L11.43 14.79ZM15.97 14.72L15.97 14.89L18.14 14.89L18.14 14.72ZM18.14 16.94L18.14 16.77L17.54 16.77L17.54 16.94ZM11.34 18.37L11.34 18.54L12.14 18.54L12.14 18.37ZM18.75 22.77L17.97 22.77L17.97 22.93L18.75 22.93ZM14.25 24.48L14.65 24.48L14.65 24.04L14.25 24.04ZM15.25 28.99L15.25 29.19L15.85 29.19L15.85 28.99ZM15.25 33.63L15.25 33.83L15.85 33.83L15.85 33.63ZM14.30 38.31L14.30 38.77L14.60 38.77L14.60 38.32ZM17.97 39.87L17.97 40.04L18.75 40.04L18.75 39.87ZM11.34 44.27L11.34 44.44L12.14 44.44L12.14 44.27ZM18.14 45.87L17.54 45.87L17.54 46.03L18.14 46.03ZM15.97 47.92L15.97 48.09L18.14 48.09L18.14 47.92ZM11.44 48.05L11.43 48.01L11.43 48.10L11.44 48.08ZM11.41 48.16L11.43 48.12L11.43 47.99L11.41 47.96ZM11.43 48.01L11.43 47.99L11.43 48.12L11.43 48.10ZM15.97 50.06L15.97 50.24L18.14 50.24L18.14 50.06ZM12.14 51.84L12.14 51.66L11.34 51.66L11.34 51.84ZM18.75 56.23L18.75 56.06L17.97 56.06L17.97 56.23ZM14.25 57.79L14.65 57.79L14.65 57.33L14.25 57.33ZM15.50 62.57L15.50 62.76L15.95 62.76L15.95 62.57ZM21.86 0.05L21.86 0.24L22.31 0.24L22.31 0.05ZM21.90 6.85L21.90 6.45L21.50 6.45L21.50 6.85ZM24.50 14.41L24.50 14.44L24.51 14.47L24.51 14.37ZM24.52 14.34L24.51 14.37L24.51 14.47L24.52 14.49ZM24.55 14.31L24.53 14.33L24.53 14.51L24.55 14.53ZM24.52 14.34L24.52 14.49L24.53 14.51L24.53 14.33ZM24.55 14.53L24.59 14.55L24.59 14.29L24.55 14.31ZM24.64 14.27L24.59 14.29L24.59 14.55L24.64 14.57ZM21.78 22.93L21.78 22.77L21.20 22.77L21.20 22.93ZM21.78 27.82L21.78 27.62L21.18 27.62L21.18 27.82ZM21.20 35.02L21.80 35.02L21.80 34.82L21.20 34.82ZM21.78 40.04L21.78 39.87L21.20 39.87L21.20 40.04ZM20.68 48.36L20.68 48.41L20.68 48.44L20.68 48.33ZM20.71 48.28L20.68 48.33L20.68 48.44L20.70 48.46L20.74 48.50L20.74 48.26ZM20.74 48.50L20.76 48.52L20.76 48.25L20.74 48.26ZM20.81 48.53L20.81 48.23L20.76 48.25L20.76 48.52ZM20.97 48.41L20.97 48.36L20.96 48.33L20.94 48.28L20.94 48.48L20.96 48.44ZM20.97 48.36L20.97 48.36L20.97 48.36ZM20.89 48.52L20.89 48.25L20.87 48.24L20.81 48.23L20.81 48.53L20.87 48.53ZM20.89 48.25L20.89 48.52L20.91 48.50L20.91 48.26ZM20.91 48.50L20.94 48.48L20.94 48.28L20.91 48.26ZM20.68 48.41L20.68 48.36L20.67 48.38ZM22.25 56.06L21.20 56.06L21.20 56.23L22.25 56.23ZM22.31 62.57L21.86 62.57L21.86 62.76L22.31 62.76ZM18.68 62.57L18.68 62.76L19.13 62.76L19.13 62.57ZM25.25 0.24L25.25 0.05L25.04 0.05L25.04 0.24ZM25.48 0.24L25.48 0.05L25.27 0.05L25.27 0.24ZM24.85 6.57L24.85 6.96L25.25 6.96L25.25 6.57ZM25.27 6.96L25.67 6.96L25.67 6.57L25.27 6.57ZM25.25 12.14L25.12 12.14L25.12 12.73L25.25 12.73ZM25.40 12.73L25.40 12.14L25.27 12.14L25.27 12.73ZM24.80 14.44L24.80 14.38L24.80 14.45ZM24.71 14.56L24.75 14.54L24.75 14.30L24.71 14.28ZM24.64 14.57L24.71 14.56L24.71 14.28L24.65 14.27L24.64 14.27ZM24.79 14.36L24.79 14.48L24.80 14.47L24.80 14.37ZM24.78 14.51L24.79 14.48L24.79 14.36L24.79 14.34L24.78 14.33ZM24.79 14.34L24.79 14.34L24.79 14.34ZM24.75 14.30L24.75 14.54L24.78 14.51L24.78 14.33L24.76 14.31ZM24.76 14.31L24.76 14.31L24.76 14.31ZM24.80 14.37L24.80 14.47L24.80 14.45L24.80 14.38ZM25.25 16.77L25.00 16.77L25.00 17.27L25.25 17.27ZM25.27 17.27L25.52 17.27L25.52 16.77L25.27 16.77ZM24.95 22.44L24.95 22.93L25.25 22.93L25.25 22.44ZM25.57 22.93L25.57 22.44L25.27 22.44L25.27 22.93ZM25.25 40.37L25.25 39.87L24.95 39.87L24.95 40.37ZM25.57 39.87L25.27 39.87L25.27 40.37L25.57 40.37ZM25.27 45.53L25.27 46.04L25.52 46.04L25.52 45.53ZM25.25 45.53L25.00 45.53L25.00 46.04L25.25 46.04ZM25.27 50.67L25.40 50.67L25.40 50.06L25.27 50.06ZM25.12 50.06L25.12 50.67L25.25 50.67L25.25 50.06ZM25.25 56.23L25.25 56.06L24.70 56.06L24.70 56.23ZM25.27 62.76L25.48 62.76L25.48 62.57L25.27 62.57ZM25.25 62.76L25.25 62.57L25.04 62.57L25.04 62.76ZM28.21 0.05L28.21 0.24L28.66 0.24L28.66 0.05ZM29.00 6.85L29.00 6.45L28.60 6.45L28.60 6.85ZM28.74 22.77L28.74 22.93L29.32 22.93L29.32 22.77ZM29.32 27.82L29.32 27.62L28.72 27.62L28.72 27.82ZM29.34 34.82L28.74 34.82L28.74 35.02L29.34 35.02ZM25.73 48.44L25.73 48.32L25.73 48.35L25.73 48.42ZM25.72 48.37L25.73 48.42L25.73 48.35ZM25.73 48.44L25.75 48.47L25.75 48.30L25.73 48.32ZM25.77 48.27L25.75 48.30L25.75 48.47L25.77 48.49ZM25.80 48.25L25.77 48.27L25.77 48.49L25.80 48.52ZM25.80 48.52L25.86 48.53L25.86 48.23L25.80 48.25ZM25.99 48.47L26.01 48.44L26.01 48.32L25.99 48.30ZM26.02 48.35L26.02 48.42L26.02 48.41ZM25.96 48.50L25.99 48.47L25.99 48.30L25.96 48.27ZM26.01 48.34L26.01 48.32L26.01 48.44L26.01 48.43ZM25.86 48.53L25.91 48.53L25.91 48.24L25.86 48.23ZM25.96 48.27L25.91 48.24L25.91 48.53L25.94 48.52L25.96 48.50ZM26.01 48.43L26.01 48.42L26.01 48.35L26.01 48.34ZM25.82 56.29L25.82 56.06L25.27 56.06L25.27 56.29ZM28.66 62.57L28.21 62.57L28.21 62.76L28.66 62.76ZM31.84 0.05L31.39 0.05L31.39 0.24L31.84 0.24ZM35.02 0.24L35.02 0.05L34.57 0.05L34.57 0.24ZM36.16 5.02L35.99 5.02L35.99 6.59L36.16 6.59ZM32.27 6.85L32.27 6.45L31.87 6.45L31.87 6.85ZM32.39 12.57L32.39 12.73L34.56 12.73L34.56 12.57ZM29.56 14.36L29.55 14.39L29.55 14.45L29.56 14.47L29.57 14.50L29.57 14.34ZM29.56 14.47L29.56 14.47L29.56 14.47ZM29.57 14.34L29.57 14.50L29.59 14.52L29.59 14.32ZM29.63 14.55L29.63 14.29L29.59 14.32L29.59 14.52L29.61 14.54ZM29.61 14.54L29.61 14.54L29.61 14.54ZM29.63 14.55L29.68 14.57L29.68 14.27L29.63 14.29ZM29.83 14.50L29.85 14.45L29.85 14.39L29.84 14.36L29.83 14.34ZM29.84 14.36L29.84 14.36L29.84 14.36ZM29.85 14.45L29.85 14.42L29.85 14.39ZM29.79 14.54L29.83 14.50L29.83 14.34L29.81 14.32L29.79 14.30ZM29.74 14.56L29.79 14.54L29.79 14.30L29.77 14.29L29.74 14.27ZM29.77 14.29L29.77 14.29L29.77 14.29ZM29.68 14.57L29.74 14.56L29.74 14.27L29.71 14.27L29.68 14.27ZM32.39 14.72L32.39 14.89L34.56 14.89L34.56 14.72ZM32.99 16.77L32.39 16.77L32.39 16.93L32.99 16.93ZM35.94 16.77L35.34 16.77L35.34 16.93L35.94 16.93ZM32.56 22.93L32.56 22.77L31.77 22.77L31.77 22.93ZM34.57 29.19L35.17 29.19L35.17 28.99L34.57 28.99ZM35.17 33.83L35.17 33.63L34.57 33.63L34.57 33.83ZM35.87 38.31L35.87 38.77L36.27 38.77L36.27 38.31ZM34.83 39.87L34.43 39.87L34.43 40.09L34.83 40.09ZM30.37 39.87L30.37 40.09L30.97 40.09L30.97 39.87ZM35.94 45.87L35.34 45.87L35.34 46.03L35.94 46.03ZM32.99 46.04L32.99 45.87L32.39 45.87L32.39 46.04ZM34.56 48.09L34.56 47.92L32.39 47.92L32.39 48.09ZM32.39 50.06L32.39 50.24L34.56 50.24L34.56 50.06ZM32.55 56.29L32.55 56.06L31.77 56.06L31.77 56.29ZM36.16 56.22L35.99 56.22L35.99 57.79L36.16 57.79ZM31.39 62.57L31.39 62.76L31.84 62.76L31.84 62.57ZM35.02 62.76L35.02 62.57L34.57 62.57L34.57 62.76ZM46.22 5.02L46.22 5.24L47.32 5.24L47.32 5.02ZM39.39 5.02L39.39 6.59L39.56 6.59L39.56 5.02ZM50.19 6.70L50.19 7.60L50.36 7.60L50.36 6.70ZM38.07 10.24L38.07 9.94L37.47 9.94L37.47 10.24ZM49.54 11.06L49.54 11.24L50.36 11.24L50.36 11.06ZM46.76 11.24L46.76 11.06L45.76 11.06L45.76 11.24ZM39.37 12.50L38.77 12.50L38.77 12.80L39.37 12.80ZM49.77 14.55L49.77 14.95L50.17 14.95L50.17 14.55ZM39.37 17.00L39.37 16.70L38.77 16.70L38.77 17.00ZM46.76 18.43L46.76 18.27L45.76 18.27L45.76 18.43ZM50.36 18.43L50.36 18.27L49.54 18.27L49.54 18.43ZM37.47 19.27L37.47 19.57L38.07 19.57L38.07 19.27ZM50.36 21.90L50.19 21.90L50.19 22.80L50.36 22.80ZM36.27 24.03L35.87 24.03L35.87 24.48L36.27 24.48ZM39.37 24.48L39.37 24.04L38.97 24.04L38.97 24.48ZM46.22 24.27L46.22 24.48L47.32 24.48L47.32 24.27ZM45.97 28.99L45.37 28.99L45.37 29.19L45.97 29.19ZM39.37 28.99L38.77 28.99L38.77 29.19L39.37 29.19ZM45.37 33.63L45.37 33.83L45.97 33.83L45.97 33.63ZM39.37 33.83L39.37 33.63L38.77 33.63L38.77 33.83ZM46.22 38.53L47.32 38.53L47.32 38.31L46.22 38.31ZM39.37 38.77L39.37 38.31L38.97 38.31L38.97 38.77ZM50.19 40.90L50.36 40.90L50.36 40.00L50.19 40.00ZM37.97 43.53L37.97 43.23L37.57 43.23L37.57 43.53ZM50.36 44.54L50.36 44.37L49.54 44.37L49.54 44.54ZM45.76 44.54L46.76 44.54L46.76 44.37L45.76 44.37ZM39.37 45.80L38.77 45.80L38.77 46.10L39.37 46.10ZM49.77 47.97L49.77 48.14L50.17 48.14L50.17 47.97ZM39.37 50.00L38.77 50.00L38.77 50.30L39.37 50.30ZM50.36 51.56L49.54 51.56L49.54 51.73L50.36 51.73ZM45.76 51.56L45.76 51.73L46.76 51.73L46.76 51.56ZM37.57 52.56L37.57 52.86L37.97 52.86L37.97 52.56ZM50.36 56.10L50.36 55.20L50.19 55.20L50.19 56.10ZM39.56 56.22L39.39 56.22L39.39 57.79L39.56 57.79ZM46.22 57.79L47.32 57.79L47.32 57.57L46.22 57.57Z","circ":"M5.05 62.54L57.04 62.55L56.07 58.90L45.38 58.90L45.37 58.89L45.37 3.91L45.38 3.90L56.07 3.90L57.04 0.25L5.05 0.25ZM15.85 6.25L34.56 6.25L34.57 6.26L34.57 7.55L36.02 7.55L36.02 5.06L36.03 5.05L39.55 5.05L39.56 5.06L39.56 7.69L39.55 7.70L39.37 7.70L39.37 55.10L39.55 55.10L39.56 55.11L39.56 57.74L39.55 57.75L36.03 57.75L36.02 57.74L36.02 56.12L30.78 56.12L30.77 56.12L30.77 34.94L28.73 34.94L28.72 34.93L28.72 22.96L21.79 22.93L21.79 39.80L25.51 39.80L25.52 39.81L25.52 46.04L25.86 46.04L25.87 46.05L25.87 50.29L25.86 50.30L24.77 50.30L24.77 56.23L25.82 56.25L25.82 56.26L25.82 56.36L25.80 56.47L25.78 56.58L25.75 56.69L25.72 56.80L25.67 56.90L25.62 57.00L25.56 57.10L25.42 57.27L25.34 57.35L25.26 57.42L25.17 57.49L25.07 57.55L24.97 57.60L24.87 57.65L24.76 57.69L24.66 57.71L24.55 57.73L24.43 57.75L24.32 57.75L11.02 57.75L11.01 57.74L11.05 5.07L11.06 5.06L15.84 5.05L15.85 5.06Z","green":"M31.12 14.60L32.37 14.70L32.37 12.75L31.12 12.75ZM30.77 48.17L30.77 49.95L32.37 49.95L32.37 48.10ZM25.52 16.77L25.52 22.93L29.77 22.93L29.77 16.77ZM27.74 18.92L27.75 18.91L28.57 18.91L28.58 18.92L28.58 19.30L28.57 19.30L27.75 19.30L27.74 19.29ZM28.57 16.88L28.58 16.89L28.58 17.26L28.57 17.27L27.75 17.27L27.75 17.27L27.74 16.89L27.75 16.88ZM27.74 22.46L27.75 22.45L28.57 22.45L28.58 22.46L28.58 22.84L28.57 22.85L27.75 22.85L27.74 22.84ZM27.74 21.95L27.75 21.95L28.57 21.95L28.58 21.95L28.58 22.34L28.57 22.34L27.75 22.34L27.74 22.33ZM27.74 21.45L27.75 21.44L28.57 21.44L28.58 21.45L28.58 21.83L28.57 21.84L27.75 21.83L27.74 21.82ZM27.74 20.94L27.75 20.93L28.57 20.93L28.58 20.94L28.58 21.32L28.57 21.33L27.75 21.33L27.74 21.32ZM27.74 20.44L27.75 20.43L28.57 20.43L28.58 20.44L28.58 20.81L28.57 20.82L27.75 20.82L27.74 20.81ZM27.74 19.93L27.75 19.92L28.57 19.92L28.58 19.93L28.58 20.31L28.57 20.32L27.75 20.31L27.74 20.30ZM27.74 19.42L27.75 19.41L28.57 19.41L28.58 19.42L28.58 19.80L28.57 19.81L27.75 19.81L27.74 19.80ZM27.74 18.41L27.75 18.40L28.57 18.40L28.58 18.41L28.58 18.79L28.57 18.80L27.75 18.79L27.74 18.79ZM27.74 17.90L27.75 17.89L28.57 17.89L28.58 17.90L28.58 18.28L28.57 18.29L27.75 18.29L27.74 18.28ZM27.74 17.40L27.75 17.39L28.57 17.39L28.58 17.40L28.58 17.77L28.57 17.78L27.75 17.78L27.74 17.77ZM27.48 19.72L27.49 19.73L27.49 20.11L27.09 20.11L27.09 19.72ZM20.65 42.44L21.64 42.44L21.65 42.44L21.65 46.04L25.52 46.04L25.52 39.87L21.80 39.85L21.80 40.04L21.79 40.05L20.65 40.05ZM23.04 44.10L23.03 44.09L23.04 43.70L23.43 43.70L23.43 44.10ZM18.00 14.70L23.77 14.70L23.77 12.80L18.01 12.75ZM21.06 13.62L21.05 13.63L20.66 13.63L20.66 13.24L21.06 13.24ZM18.15 50.05L19.40 50.05L19.40 48.20L18.15 48.10Z"};
+(function(){
+var NS="http://www.w3.org/2000/svg";
+function $(id){return document.getElementById(id);}
+function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function txt(p,x,y,s,cls,fs,anc,extra){var a={x:x,y:y,"font-size":fs,"class":cls,"text-anchor":anc||"middle"};
+  for(var k in extra||{})a[k]=extra[k];var t=el("text",a,p);t.textContent=s;return t;}
+function clear(n){while(n.firstChild)n.removeChild(n.firstChild);}
+function f1(v){return v.toFixed(1).replace(".",",");}
+function f2(v){return v.toFixed(2).replace(".",",");}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function rA(r){return (r[2]-r[0])*(r[3]-r[1]);}
+function pA(p){var a=0;for(var i=0;i<p.length;i++){var j=(i+1)%p.length;a+=p[i][0]*p[j][1]-p[j][0]*p[i][1];}return Math.abs(a/2);}
+function pBox(p){var xs=p.map(function(q){return q[0]}),ys=p.map(function(q){return q[1]});
+  return [Math.min.apply(0,xs),Math.min.apply(0,ys),Math.max.apply(0,xs),Math.max.apply(0,ys)];}
+function rsBox(rs){var b=[1e9,1e9,-1e9,-1e9];rs.forEach(function(r){b[0]=Math.min(b[0],r[0]);b[1]=Math.min(b[1],r[1]);
+  b[2]=Math.max(b[2],r[2]);b[3]=Math.max(b[3],r[3]);});return b;}
+function pts(p){return p.map(function(q){return q[0]+","+q[1]}).join(" ");}
+
+var GROUPS={1:"Batería perimetral, lado Norte",2:"Isla central, frente Norte",3:"Isla central, cabecera Torre A",
+  4:"Patio central, lado Norte",5:"Cabecera Torre B, lado Norte",6:"Cabecera Torre B, lado Tajes",
+  7:"Patio central, lado Tajes",8:"Isla central, frente Tajes",9:"Batería perimetral, lado Máximo Tajes"};
+var BAYS=D.bays, BY={}, APTS={};
+BAYS.forEach(function(b){
+  BY[b.n]=b;
+  b.st=b.apt==="LIBRE"?"free":(b.apt==="?"?"unk":b.apt.charAt(0));
+  b.w=b.r[2]-b.r[0];b.h=b.r[3]-b.r[1];b.area=b.w*b.h;
+  b.ancho=b.e==="t"?b.w:b.h;b.largo=b.e==="t"?b.h:b.w;
+  if(b.st==="A"||b.st==="B")(APTS[b.apt]=APTS[b.apt]||[]).push(b);
+});
+var APT_KEYS=Object.keys(APTS).sort();
+var BLK={};
+D.blocks.forEach(function(k){k.area=k.p?pA(k.p):k.rects.reduce(function(s,r){return s+rA(r)},0);
+  k.box=k.p?pBox(k.p):rsBox(k.rects);BLK[k.id]=k;});
+D.ped.forEach(function(k){k.area=rA(k.r);k.box=k.r;k.t="ped";BLK[k.id]=k;});
+D.ramps.forEach(function(k){k.area=pA(k.p);k.box=pBox(k.p);k.t="ramp";BLK[k.id]=k;});
+BLK.circ={id:"circ",n:"Circulación vehicular",t:"circ",area:D.circ_m2,box:[0,0,50.36,62.8],rotulado:1,
+  note:"Calles de 6,00 m alrededor de la isla central y por el patio central (6,94 m). Superficie del vector, rampas incluidas."};
+
+var TYPE_NAME={med:"Sala de medidores",core:"Núcleo de circulación",serv:"Servicios",amen:"Amenity",bici:"Bicicletas y motos",
+  green:"Lucernario",ped:"Ingreso peatonal",ramp:"Ingreso vehicular",circ:"Circulación"};
+
+/* ---------- dibujo ---------- */
+var gSite=$("g-site"),gR=$("g-ramps"),gB=$("g-blocks"),gBay=$("g-bays"),gAcc=$("g-acc"),gL=$("g-labels"),
+    gSel=$("g-sel"),gLive=$("g-live"),gDeco=$("g-deco"),gGr=$("g-grill");
+$("g-circ").setAttribute("d",G.circ);$("g-green").setAttribute("d",G.green);
+$("g-wint").setAttribute("d",G.wint);$("g-wext").setAttribute("d",G.wext);$("g-cols").setAttribute("d",G.cols);
+
+(function site(){
+  var S=D.site,w=S.dirtW,e=S.dirtE;
+  el("rect",{x:w[0],y:w[1],width:w[2]-w[0],height:w[3]-w[1],fill:"url(#dirt)"},gSite);
+  el("rect",{x:e[0],y:e[1],width:e[2]-e[0],height:e[3]-e[1],fill:"url(#dirt)"},gSite);
+  txt(gSite,-1.15,31.4,"TERRENO SIN EXCAVAR","lb-dirt",.62,"middle",{transform:"rotate(-90 -1.15 31.4)"});
+  txt(gSite,(e[0]+e[2])/2,31.4,"TERRENO SIN EXCAVAR · RETIRO FRONTAL 7 m","lb-dirt",.62,"middle",
+    {transform:"rotate(-90 "+((e[0]+e[2])/2)+" 31.4)"});
+  /* línea de calle */
+  el("line",{x1:59.02,y1:-1.1,x2:59.02,y2:64.3,stroke:"var(--ink-3)","stroke-width":.08,"stroke-dasharray":"1 .4 .15 .4"},gSite);
+  txt(gSite,60.0,31.4,"CALLE MÁXIMO TAJES","lb-dirt",.7,"middle",{transform:"rotate(90 60.0 31.4)"});
+  /* rejillas de ventilación en el perímetro */
+  S.grills.forEach(function(r){
+    el("rect",{x:r[0],y:r[1],width:r[2]-r[0],height:r[3]-r[1],fill:"url(#grate)",stroke:"var(--wall-ext)","stroke-width":.04},gGr);
+  });
+})();
+
+D.ramps.forEach(function(k){
+  var g=el("g",{"class":"blk","data-blk":k.id},gR);
+  el("polygon",{points:pts(k.p),fill:"url(#ramp)",stroke:"var(--ramp-line)","stroke-width":.06},g);
+  var gr=k.grate;el("rect",{x:gr[0],y:gr[1],width:gr[2]-gr[0],height:gr[3]-gr[1],fill:"url(#grate)"},g);
+  el("title",{},g).textContent=k.n+" · rampa "+k.slope;
+});
+
+function blockLabel(k,g){
+  var bb=k.box,w=bb[2]-bb[0],h=bb[3]-bb[1];
+  var cx=k.lc?k.lc[0]:(bb[0]+bb[2])/2, cy=k.lc?k.lc[1]:(bb[1]+bb[3])/2;
+  var rot=!!k.rot,av=rot?h:w,ac=rot?w:h,L=k.L||[k.n.toUpperCase()];
+  var longest=0;L.forEach(function(s){longest=Math.max(longest,s.length)});
+  var fs=k.t==="core"?.62:Math.max(.36,Math.min(k.t==="med"?.62:.7,av/(longest*.6),ac/(L.length*1.35)));
+  var gg=el("g",rot?{transform:"rotate(-90 "+cx+" "+cy+")"}:{},g);
+  var y0=cy-(L.length-1)*fs*.58+fs*.34;
+  L.forEach(function(s,i){txt(gg,cx,y0+i*fs*1.16,s,"lb-blk"+(k.t==="med"?" lb-med":""),fs,"middle",
+    {"data-lbl":k.t==="med"?"med":"blk"});});
+}
+D.blocks.forEach(function(k){
+  var g=el("g",{"class":"blk t-"+k.t,"data-blk":k.id,"data-ly":k.t==="med"?"med":"blk"},gB);
+  if(k.p)el("polygon",{points:pts(k.p)},g);
+  else k.rects.forEach(function(r){el("rect",{x:r[0],y:r[1],width:r[2]-r[0],height:r[3]-r[1]},g);});
+  el("title",{},g).textContent=k.n;
+});
+
+/* cocheras */
+var bayNode={};
+BAYS.forEach(function(b){
+  var r=b.r,g=el("g",{"class":"bay s-"+b.st,"data-bay":b.n},gBay);
+  el("rect",{x:r[0],y:r[1],width:b.w,height:b.h},g);
+  el("title",{},g).textContent="Cochera "+b.n+" · "+(b.st==="free"?"libre":b.st==="unk"?"sin rótulo":b.apt);
+  bayNode[b.n]=g;
+});
+
+/* rótulos */
+var gNum=el("g",{id:"lb-nums"},gL),gApt=el("g",{id:"lb-apts"},gL),gBlkL=el("g",{id:"lb-blk"},gL),gMedL=el("g",{id:"lb-med"},gL),
+    gAccL=el("g",{id:"lb-acc"},gL);
+BAYS.forEach(function(b){
+  var r=b.r,nx,anc;
+  if(b.e==="r"){nx=r[2]-.22;anc="end";}else{nx=r[0]+.22;anc="start";}
+  txt(gNum,nx,r[1]+.72,b.n,"lb-num",.6,anc);
+  var cx=(r[0]+r[2])/2,cy=(r[1]+r[3])/2+(b.h>3.2?.15:.42);
+  if(b.e!=="t"){cx+= (b.e==="r"?-.35:.35);}
+  if(b.st==="free")txt(gApt,cx,cy+.25,"LIBRE","lb-apt s-free",.62);
+  else if(b.st==="unk")txt(gApt,cx,cy+.2,"SIN RÓTULO","lb-apt s-unk",.5);
+  else txt(gApt,cx,cy+.33,b.apt,"lb-apt s-"+b.st,.92);
+  if(b.live){var x=b.e==="r"?r[0]+.12:r[2]-.12,s=b.e==="r"?1:-1;
+    el("path",{d:"M"+x+" "+(r[3]-.12)+"l"+(s*.8)+" 0l"+(-s*.8)+" -.8Z",fill:"var(--accent)"},gLive);}
+});
+D.blocks.forEach(function(k){blockLabel(k,k.t==="med"?gMedL:gBlkL);});
+
+/* ingresos: rampas y peatonales */
+D.ramps.forEach(function(k){
+  var x0=k.p[0][0],x1=Math.min(k.p[1][0],k.p[2][0]),cy=k.cy;
+  txt(gAccL,(x0+x1)/2,cy-.35,"RAMPA "+k.slope,"lb-veh",.8);
+  txt(gAccL,(x0+x1)/2,cy+.55,"ACCESO MÁXIMO TAJES","lb-small",.5);
+  el("line",{x1:x0+1.2,y1:cy+1.25,x2:x1-.6,y2:cy+1.25,stroke:"var(--veh)","stroke-width":.14,
+    "marker-start":"url(#ah-veh)","marker-end":"url(#ah-veh)"},gAcc);
+  /* marca de ingreso sobre la línea de calle */
+  var mx=Math.max(k.p[1][0],k.p[2][0])+.25;
+  el("path",{d:"M"+(mx+1.4)+" "+(cy-1.05)+"L"+(mx+.15)+" "+cy+"L"+(mx+1.4)+" "+(cy+1.05)+"Z",fill:"var(--veh)"},gAcc);
+});
+D.ped.forEach(function(k){
+  var r=k.r,g=el("g",{"class":"blk","data-blk":k.id},gAcc);
+  el("rect",{x:r[0],y:r[1],width:r[2]-r[0],height:r[3]-r[1],fill:"var(--panel)",stroke:"var(--ped)","stroke-width":.1},g);
+  if(k.k==="asc"){
+    el("path",{d:"M"+r[0]+" "+r[1]+"L"+r[2]+" "+r[3]+"M"+r[2]+" "+r[1]+"L"+r[0]+" "+r[3],stroke:"var(--ped)","stroke-width":.06,fill:"none"},g);
+  }else{
+    var d="",n=7;for(var i=1;i<n;i++){var x=r[0]+(r[2]-r[0])*i/n;d+="M"+x.toFixed(2)+" "+r[1]+"L"+x.toFixed(2)+" "+r[3];}
+    el("path",{d:d,stroke:"var(--ped)","stroke-width":.05,fill:"none"},g);
+    el("line",{x1:r[0]+.3,y1:(r[1]+r[3])/2,x2:r[2]-.4,y2:(r[1]+r[3])/2,stroke:"var(--ped)","stroke-width":.08},g);
+  }
+  el("title",{},g).textContent=k.n;
+  var lab=k.k==="asc"?k.n.replace("Ascensor","ASC.").toUpperCase():"ESCALERA";
+  txt(gAccL,k.lab[0],k.lab[1]+.2,lab,"lb-ped",.52,k.anc);
+});
+
+/* escala y norte */
+(function(){
+  var x=0,y=64.7,T="var(--ink)";
+  el("line",{x1:x,y1:y,x2:x+10,y2:y,stroke:T,"stroke-width":.1},gDeco);
+  [0,5,10].forEach(function(d){el("line",{x1:x+d,y1:y-.35,x2:x+d,y2:y+.35,stroke:T,"stroke-width":.1},gDeco);});
+  el("rect",{x:x,y:y-.18,width:5,height:.36,fill:T},gDeco);
+  txt(gDeco,x,y+1.25,"0","lb-small",.6,"middle");txt(gDeco,x+10,y+1.25,"10 m","lb-small",.6,"middle");
+  var cx=14.5,cy=64.7;
+  el("circle",{cx:cx,cy:cy,r:1.05,fill:"none",stroke:T,"stroke-width":.07},gDeco);
+  el("path",{d:"M"+(cx-1.05)+" "+cy+"L"+(cx+.35)+" "+(cy-.38)+"L"+(cx+.35)+" "+(cy+.38)+"Z",fill:T},gDeco);
+  txt(gDeco,cx-1.5,cy+.22,"N","lb-small",.62,"end");
+})();
+
+/* ---------- estado ---------- */
+var state={k:null,id:null}, filter="all";
+function bayOk(b){
+  if(filter==="all")return true;
+  if(filter==="free")return b.st==="free"||b.st==="unk";
+  return b.st===filter;
+}
+function selApt(){if(state.k==="apt")return state.id;if(state.k==="bay"){var b=BY[state.id];return (b.st==="A"||b.st==="B")?b.apt:null;}return null;}
+function paint(){
+  var apt=selApt();
+  BAYS.forEach(function(b){
+    var dim=!bayOk(b)||(apt&&b.apt!==apt)||(state.k==="bay"&&!apt&&b.n!==state.id);
+    bayNode[b.n].classList.toggle("dim",!!dim);
+  });
+  ["lb-nums","lb-apts"].forEach(function(id){
+    var kids=$(id).childNodes;
+    for(var i=0;i<kids.length;i++){var b=BAYS[i];
+      var dim=!bayOk(b)||(apt&&b.apt!==apt)||(state.k==="bay"&&!apt&&b.n!==state.id);
+      kids[i].classList.toggle("dim",!!dim);}
+  });
+  clear(gSel);
+  var list=[];
+  if(apt)list=APTS[apt];else if(state.k==="bay")list=[BY[state.id]];
+  list.forEach(function(b){var r=b.r,main=state.k==="bay"&&b.n===state.id;
+    el("rect",{x:r[0]+.06,y:r[1]+.06,width:b.w-.12,height:b.h-.12,fill:"none",stroke:"var(--sel)",
+      "stroke-width":main?.26:.16},gSel);});
+  if(state.k==="blk"){var bb=BLK[state.id].box;
+    el("rect",{x:bb[0]-.2,y:bb[1]-.2,width:bb[2]-bb[0]+.4,height:bb[3]-bb[1]+.4,fill:"none",stroke:"var(--sel)",
+      "stroke-width":.16,"stroke-dasharray":".8 .45",rx:.2},gSel);}
+  var rows=document.querySelectorAll("#atab tr[data-apt]");
+  for(var i=0;i<rows.length;i++)rows[i].classList.toggle("on",rows[i].getAttribute("data-apt")===apt);
+  var chips=document.querySelectorAll("#atab .chip");
+  for(var j=0;j<chips.length;j++)chips[j].classList.toggle("on",state.k==="bay"&&chips[j].getAttribute("data-n")===state.id);
+  ["all","A","B","free"].forEach(function(f){$("f-"+f).setAttribute("aria-pressed",String(f===filter));});
+  info();
+}
+
+function chip(b){return '<button type="button" class="chip '+b.st+'" data-n="'+b.n+'">'+b.n+'</button>';}
+function pill(st){return {A:'<span class="pill A">Torre A</span>',B:'<span class="pill B">Torre B</span>',
+  free:'<span class="pill free">Libre</span>',unk:'<span class="pill unk">Sin rótulo</span>'}[st];}
+function info(){
+  var I=$("info"),h="";
+  if(state.k==="bay"){
+    var b=BY[state.id],sib=(b.st==="A"||b.st==="B")?APTS[b.apt]:[b];
+    h='<div class="nm">Cochera '+b.n+' '+pill(b.st)+'</div><dl>'+
+      '<dt>Apartamento</dt><dd>'+(b.st==="A"||b.st==="B"?'<button type="button" class="apt" data-apt="'+b.apt+'">'+b.apt+'</button>':
+        (b.st==="free"?"Libre, sin asignar":"Sin apartamento en el plano"))+'</dd>'+
+      '<dt>Medidas</dt><dd>'+f2(b.ancho)+' × '+f2(b.largo)+' m</dd>'+
+      '<dt>Superficie</dt><dd>'+f1(b.area)+' m²</dd>'+
+      '<dt>Ubicación</dt><dd style="font-family:var(--f-body)">'+GROUPS[b.g]+'</dd>'+
+      (sib.length>1?'<dt>Del mismo apto.</dt><dd><div class="chips">'+sib.filter(function(x){return x!==b}).map(chip).join("")+'</div></dd>':'')+
+      '</dl>'+(b.live?'<p class="src"><span class="pill live">Rótulo editado</span> El apartamento de esta cochera es texto editado sobre la lámina original: probablemente se reasignó en la actualización de 2023.</p>':'');
+  }else if(state.k==="apt"){
+    var L=APTS[state.id],tot=L.reduce(function(s,x){return s+x.area},0);
+    h='<div class="nm">Apto. '+state.id+' '+pill(L[0].st)+'</div><dl>'+
+      '<dt>Cocheras</dt><dd><div class="chips">'+L.map(chip).join("")+'</div></dd>'+
+      '<dt>Superficie</dt><dd>'+f1(tot)+' m² en total</dd></dl>'+
+      '<table class="at" style="margin-top:10px"><tbody>'+L.map(function(x){return '<tr><td>'+chip(x)+'</td><td style="font-size:12px;color:var(--ink-2)">'+
+        GROUPS[x.g]+'</td><td class="n">'+f2(x.ancho)+' × '+f2(x.largo)+'</td></tr>';}).join("")+'</tbody></table>';
+  }else if(state.k==="blk"){
+    var k=BLK[state.id],bb=k.box;
+    var tag=k.t==="med"?'<span class="pill med">Medidores</span>':(k.interp?'<span class="pill int">Interpretado</span>':'<span class="pill rot">Rotulado en el plano</span>');
+    h='<div class="nm">'+esc(k.n)+'</div><div style="margin-top:6px">'+tag+'</div><dl>'+
+      '<dt>Tipo</dt><dd style="font-family:var(--f-body)">'+TYPE_NAME[k.t]+(k.slope?' · rampa '+k.slope:'')+'</dd>'+
+      '<dt>Superficie</dt><dd>'+f1(k.area)+' m²</dd>'+
+      (k.t!=="circ"&&!(k.rects&&k.rects.length>1)?'<dt>Medidas</dt><dd>'+f2(bb[2]-bb[0])+' × '+f2(bb[3]-bb[1])+' m</dd>':'')+
+      '</dl>'+(k.note?'<p class="src">'+esc(k.note)+'</p>':'');
+  }else{
+    h='<p class="empty">Tocá una <b>cochera</b> para ver su apartamento, medidas y las otras cocheras del mismo apartamento. '+
+      'Tocá un <b>bloque</b> (medidores, núcleos, rampas) para ver su superficie. También podés buscar arriba del plano.</p>';
+  }
+  I.innerHTML=h;
+}
+$("info").addEventListener("click",function(e){
+  var c=e.target.closest(".chip");if(c){select("bay",c.getAttribute("data-n"),true);return;}
+  var a=e.target.closest(".apt");if(a){select("apt",a.getAttribute("data-apt"),true);}
+});
+
+function select(k,id,reveal){
+  if(k&&state.k===k&&state.id===id&&!reveal){state={k:null,id:null};}else state={k:k,id:id};
+  paint();
+  if(reveal&&state.k){var bb;
+    if(state.k==="apt")bb=rsBox(APTS[id].map(function(b){return b.r}));
+    else if(state.k==="bay")bb=BY[id].r;else bb=BLK[id].box;
+    if(!inView(bb))fitTo(bb,7);}
+}
+
+/* ---------- panel ---------- */
+(function(){
+  var cnt={A:0,B:0,free:0,unk:0};BAYS.forEach(function(b){cnt[b.st]++});
+  var nA=APT_KEYS.filter(function(a){return a.charAt(0)==="A"}).length,nB=APT_KEYS.length-nA;
+  var meds=D.blocks.filter(function(k){return k.t==="med"}).length;
+  $("stats").innerHTML=
+    '<li><b>'+BAYS.length+'</b><span>cocheras</span></li>'+
+    '<li><b>'+(cnt.A+cnt.B)+'</b><span>asignadas</span></li>'+
+    '<li><b>'+cnt.free+'</b><span>libres</span></li>'+
+    '<li><b>'+cnt.unk+'</b><span>sin rótulo (n.º 59)</span></li>'+
+    '<li><b>'+APT_KEYS.length+'</b><span>apartamentos con cochera</span></li>'+
+    '<li><span class="sw" style="background:var(--med);border-color:var(--med-line)"></span><b>'+meds+'</b><span>salas de medidores</span></li>'+
+    '<li><b>2</b><span>rampas desde Máximo Tajes</span></li>';
+  function bar(n,c){return '<i style="width:'+n+'%;background:var(--'+c+')"></i>';}
+  $("sum").innerHTML='<div class="tot">'+
+    '<span class="sw" style="background:var(--ta);border-color:var(--ta-line)"></span><span>Torre A · '+nA+' aptos.</span><span class="n">'+cnt.A+'</span>'+
+    '<span class="sw" style="background:var(--tb);border-color:var(--tb-line)"></span><span>Torre B · '+nB+' aptos.</span><span class="n">'+cnt.B+'</span>'+
+    '<span class="sw" style="background:var(--free);border-color:var(--free-line)"></span><span>Libres</span><span class="n">'+cnt.free+'</span>'+
+    '<span class="sw" style="background:var(--unk);border-color:var(--unk-line)"></span><span>Sin rótulo</span><span class="n">'+cnt.unk+'</span>'+
+    '<span></span><div class="bar" style="grid-column:2/4" aria-hidden="true">'+bar(cnt.A,"ta-line")+bar(cnt.B,"tb-line")+bar(cnt.free,"free-line")+bar(cnt.unk,"unk-line")+'</div>'+
+    '</div>';
+  var multi=APT_KEYS.filter(function(a){return APTS[a].length>1}).length;
+  $("acount").textContent=APT_KEYS.length+" aptos. · "+multi+" con más de una";
+  var tb=document.querySelector("#atab tbody"),h="";
+  ["A","B"].forEach(function(T){
+    var ks=APT_KEYS.filter(function(a){return a.charAt(0)===T});
+    h+='<tr class="grp"><td colspan="3">Torre '+T+' · '+ks.length+' apartamentos</td></tr>';
+    ks.forEach(function(a){var L=APTS[a];
+      h+='<tr data-apt="'+a+'"><td><button type="button" class="apt" data-apt="'+a+'">'+a+'</button></td><td><div class="chips">'+
+        L.map(chip).join("")+'</div></td><td class="n">'+f1(L.reduce(function(s,x){return s+x.area},0))+' m²</td></tr>';});
+  });
+  var fr=BAYS.filter(function(b){return b.st==="free"||b.st==="unk"});
+  h+='<tr class="grp"><td colspan="3">Sin asignar · '+fr.length+' cocheras</td></tr>';
+  h+='<tr><td>Libres y s/ rótulo</td><td colspan="2"><div class="chips">'+fr.map(chip).join("")+'</div></td></tr>';
+  tb.innerHTML=h;
+  tb.addEventListener("click",function(e){
+    var c=e.target.closest(".chip");if(c){select("bay",c.getAttribute("data-n"),true);return;}
+    var a=e.target.closest(".apt");if(a)select("apt",a.getAttribute("data-apt"),true);
+  });
+  $("aptlist").innerHTML=APT_KEYS.map(function(a){return '<option value="'+a+'">'+APTS[a].length+' cochera'+(APTS[a].length>1?'s':'')+': '+
+    APTS[a].map(function(b){return b.n}).join(", ")+'</option>';}).join("");
+
+  /* convenciones */
+  function sw(fill,stroke,dash){return '<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="1" y="1" width="26" height="12" fill="'+fill+
+    '" stroke="'+stroke+'" stroke-width="1.2"'+(dash?' stroke-dasharray="3 2"':'')+'/></svg>';}
+  var lg=[
+    [sw("var(--ta)","var(--ta-line)"),"Cochera de apartamento Torre A"],
+    [sw("var(--tb)","var(--tb-line)"),"Cochera de apartamento Torre B"],
+    [sw("var(--free)","var(--free-line)",1),"Cochera libre"],
+    [sw("var(--unk)","var(--unk-line)"),"Cochera sin rótulo"],
+    [sw("var(--med)","var(--med-line)"),"Sala de medidores"],
+    ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="4" width="28" height="6" fill="var(--wall-ext)"/></svg>',"Muro perimetral"],
+    ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="5" width="28" height="4" fill="var(--wall)"/></svg>',"Muro interior"],
+    ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="4" width="28" height="6" fill="var(--panel)" stroke="var(--wall-ext)" stroke-width=".8"/>'+
+      '<path d="M3 4v6M6 4v6M9 4v6M12 4v6M15 4v6M18 4v6M21 4v6M24 4v6" stroke="var(--ink-3)" stroke-width=".8"/></svg>',"Rejilla de iluminación y ventilación"],
+    ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="9" y="2" width="10" height="10" fill="var(--col)" stroke="var(--col-line)"/></svg>',"Columna"],
+    [sw("var(--circ)","var(--circ)"),"Circulación vehicular"],
+    ['<svg viewBox="0 0 28 14" aria-hidden="true"><line x1="3" y1="7" x2="25" y2="7" stroke="var(--veh)" stroke-width="2"/>'+
+      '<path d="M0 7l6-4v8zM28 7l-6-4v8z" fill="var(--veh)"/></svg>',"Ingreso vehicular (rampa)"],
+    ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="8" y="1" width="12" height="12" fill="var(--panel)" stroke="var(--ped)" stroke-width="1.2"/>'+
+      '<path d="M8 1l12 12M20 1L8 13" stroke="var(--ped)"/></svg>',"Ascensor (ingreso peatonal)"],
+    ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="6" y="1" width="16" height="12" fill="var(--panel)" stroke="var(--ped)" stroke-width="1.2"/>'+
+      '<path d="M10 1v12M14 1v12M18 1v12" stroke="var(--ped)"/></svg>',"Escalera (ingreso peatonal)"],
+    ['<svg viewBox="0 0 28 14" aria-hidden="true"><path d="M2 13h18L2 1z" fill="var(--accent)"/></svg>',"Rótulo editado (capa opcional)"]
+  ];
+  $("legend").innerHTML=lg.map(function(r){return r[0]+'<span>'+r[1]+'</span>';}).join("");
+
+  var V=[{v:"v1",date:"16-10-2026",title:"Primera lectura de los garajes",
+    summary:"Cocheras, apartamentos, medidores, muros e ingresos tomados de «Garages actualizados» 2023.08.",
+    changes:["100 cocheras dibujadas con los límites reales del vector y numeradas 01–100.",
+      "Apartamento asignado a cada cochera: "+(cnt.A+cnt.B)+" asignadas ("+cnt.A+" Torre A, "+cnt.B+" Torre B), "+cnt.free+" libres y la 59 sin rótulo.",
+      "Dos salas de medidores: junto a la cochera 65 (Torre A) y debajo de la 80 (Torre B).",
+      "Muro perimetral separado de los muros interiores, con las rejillas de ventilación superior e inferior; 203 columnas.",
+      "Ingresos: dos rampas desde Máximo Tajes (15 % y 19 %), cuatro ascensores y dos escaleras.",
+      "Resto de los locales como bloques: núcleos, gym, laundry, vestuarios, reserva de agua, bomba de incendio, corrientes débiles, bicicleteros y lucernarios."]}];
+  $("vcount").textContent=V.length;
+  $("vlist").innerHTML=V.map(function(x){return '<div class="vitem"><div class="top"><span class="vn">'+x.v+'</span><span class="vd">'+x.date+
+    '</span></div><div class="vt">'+x.title+'</div><div style="font-size:12px;color:var(--ink-2);margin-top:3px">'+x.summary+'</div></div>'+
+    '<div class="vchg"><h3>Contenido de '+x.v+'</h3><ul>'+x.changes.map(function(c){return '<li>'+c+'</li>'}).join("")+'</ul></div>';}).join("");
+})();
+
+/* filtros y búsqueda */
+["all","A","B","free"].forEach(function(f){$("f-"+f).addEventListener("click",function(){filter=f;paint();});});
+var q=$("q");
+function runSearch(){
+  var v=q.value.trim().toUpperCase().replace(/\s+/g,"");
+  if(!v)return;
+  if(/^\d{1,3}$/.test(v)){var n=("0"+parseInt(v,10)).slice(-2);if(v==="100")n="100";if(BY[n]){select("bay",n,true);}return;}
+  var m=v.match(/^([AB])(\d{1,3})$/);if(m){var k=m[1]+("00"+m[2]).slice(-3);if(APTS[k]){select("apt",k,true);q.value=k;}}
+}
+q.addEventListener("change",runSearch);
+q.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();runSearch();}});
+q.addEventListener("input",function(){var v=q.value.trim().toUpperCase();if(APTS[v])select("apt",v,true);});
+
+/* capas */
+function on(id){return $(id).checked;}
+function layers(){
+  gBay.classList.toggle("hidden",!on("l-bays"));gSel.classList.toggle("hidden",!on("l-bays")&&state.k!=="blk");
+  $("lb-nums").classList.toggle("hidden",!on("l-nums")||!on("l-bays"));
+  $("lb-apts").classList.toggle("hidden",!on("l-apts")||!on("l-bays"));
+  var bl=gB.querySelectorAll(".blk");for(var i=0;i<bl.length;i++){var med=bl[i].getAttribute("data-ly")==="med";
+    bl[i].classList.toggle("hidden",med?!on("l-med"):!on("l-blk"));}
+  $("lb-med").classList.toggle("hidden",!on("l-med"));$("lb-blk").classList.toggle("hidden",!on("l-blk"));
+  $("g-green").classList.toggle("hidden",!on("l-blk"));
+  $("g-circ").classList.toggle("hidden",!on("l-circ"));gR.classList.toggle("hidden",!on("l-circ"));
+  gAcc.classList.toggle("hidden",!on("l-acc"));$("lb-acc").classList.toggle("hidden",!on("l-acc"));
+  $("g-walls").classList.toggle("hidden",!on("l-walls"));$("g-cols").classList.toggle("hidden",!on("l-cols"));
+  gSite.classList.toggle("hidden",!on("l-site"));gLive.classList.toggle("hidden",!on("l-live"));
+  $("gridrect").classList.toggle("hidden",!on("l-grid"));
+}
+["l-bays","l-nums","l-apts","l-med","l-blk","l-circ","l-acc","l-walls","l-cols","l-site","l-live","l-grid"].forEach(function(id){
+  $(id).addEventListener("change",layers);});
+
+/* ---------- vista: zoom y desplazamiento ---------- */
+var svg=$("plan"),FIT=[-2.4,-2.4,61.4,66.4],vb=[-2.4,-2.6,64,69];
+function setVB(){svg.setAttribute("viewBox",vb.map(function(v){return v.toFixed(3)}).join(" "));}
+function sz(){var r=svg.getBoundingClientRect();return [Math.max(r.width,1),Math.max(r.height,1)];}
+function fitTo(b,pad){var s=sz(),w=b[2]-b[0]+2*pad,h=b[3]-b[1]+2*pad,k=Math.max(w/s[0],h/s[1]);
+  var W=s[0]*k,H=s[1]*k;vb=[(b[0]+b[2])/2-W/2,(b[1]+b[3])/2-H/2,W,H];setVB();}
+function inView(b){return b[0]>=vb[0]&&b[1]>=vb[1]&&b[2]<=vb[0]+vb[2]&&b[3]<=vb[1]+vb[3];}
+function toUser(cx,cy){var r=svg.getBoundingClientRect();return [vb[0]+(cx-r.left)/r.width*vb[2],vb[1]+(cy-r.top)/r.height*vb[3]];}
+function zoom(f,ux,uy){var nw=Math.max(5,Math.min(170,vb[2]*f)),k=nw/vb[2];
+  vb=[ux-(ux-vb[0])*k,uy-(uy-vb[1])*k,vb[2]*k,vb[3]*k];setVB();}
+var lastS=null;
+function onResize(){var s=sz();if(lastS){var cx=vb[0]+vb[2]/2,cy=vb[1]+vb[3]/2,k=vb[2]/lastS[0];
+  vb=[cx-s[0]*k/2,cy-s[1]*k/2,s[0]*k,s[1]*k];setVB();}lastS=s;}
+if(window.ResizeObserver)new ResizeObserver(onResize).observe(svg);else window.addEventListener("resize",onResize);
+svg.addEventListener("wheel",function(e){e.preventDefault();var u=toUser(e.clientX,e.clientY);zoom(e.deltaY>0?1.12:.89,u[0],u[1]);},{passive:false});
+var P={},drag=null,moved=false,pinch=null;
+function ids(){return Object.keys(P);}
+svg.addEventListener("pointerdown",function(e){
+  P[e.pointerId]=[e.clientX,e.clientY];var I=ids();
+  if(I.length===1){drag={x:e.clientX,y:e.clientY,vb0:vb.slice()};moved=false;}
+  else if(I.length===2){var a=P[I[0]],b=P[I[1]];pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1])||1,vb0:vb.slice(),
+    m:[(a[0]+b[0])/2,(a[1]+b[1])/2]};drag=null;moved=true;}
+});
+svg.addEventListener("pointermove",function(e){
+  if(!(e.pointerId in P))return;P[e.pointerId]=[e.clientX,e.clientY];var I=ids();
+  if(pinch&&I.length===2){var a=P[I[0]],b=P[I[1]],d=Math.hypot(a[0]-b[0],a[1]-b[1])||1;
+    vb=pinch.vb0.slice();var u=toUser(pinch.m[0],pinch.m[1]);zoom(pinch.d/d,u[0],u[1]);return;}
+  if(drag){var dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+    if(!moved&&Math.hypot(dx,dy)>5){moved=true;try{svg.setPointerCapture(e.pointerId);}catch(_){}svg.classList.add("drag");}
+    if(moved){var r=svg.getBoundingClientRect();vb[0]=drag.vb0[0]-dx/r.width*vb[2];vb[1]=drag.vb0[1]-dy/r.height*vb[3];setVB();}}
+});
+function hit(cx,cy){
+  var t=document.elementFromPoint(cx,cy);if(!t||!t.closest){select(null,null);return;}
+  var b=t.closest("[data-bay]");if(b){select("bay",b.getAttribute("data-bay"));return;}
+  var k=t.closest("[data-blk]");if(k){select("blk",k.getAttribute("data-blk"));return;}
+  state={k:null,id:null};paint();
+}
+svg.addEventListener("pointerup",function(e){
+  var tap=drag&&!moved&&ids().length===1;delete P[e.pointerId];
+  if(ids().length<2)pinch=null;
+  if(tap)hit(e.clientX,e.clientY);
+  if(!ids().length){drag=null;svg.classList.remove("drag");}
+});
+svg.addEventListener("pointercancel",function(e){delete P[e.pointerId];pinch=null;drag=null;svg.classList.remove("drag");});
+$("zin").onclick=function(){zoom(.8,vb[0]+vb[2]/2,vb[1]+vb[3]/2);};
+$("zout").onclick=function(){zoom(1.25,vb[0]+vb[2]/2,vb[1]+vb[3]/2);};
+$("zfit").onclick=function(){fitTo(FIT,0);};
+
+fitTo(FIT,0);lastS=sz();
+layers();paint();
+})();
+</script>
