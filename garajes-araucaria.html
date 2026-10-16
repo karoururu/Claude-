@@ -16,7 +16,7 @@
   --med:#DCCFF3; --med-line:#5B3FA0; --med-ink:#3E2879;
   --z-core:#DCE0E7; --z-serv:#D2E1DA; --z-amen:#EFE5D6; --z-bici:#D6EDF2; --z-green:#CFE6C3;
   --veh:#1F7A4D; --ped:#0E6E92; --ev:#14A149;
-  --evp:#FFC400; --evp-line:#5E4800; --evp-ink:#6E5300; --conf:#DC2F1A; --tray:#AE1F98; --sel:#D0284A; --accent:#B4552E;
+  --evp:#FFC400; --evp-line:#5E4800; --evp-ink:#6E5300; --conf:#DC2F1A; --tray:#AE1F98; --tray-new:#E3241B; --sel:#D0284A; --accent:#B4552E;
   --shadow:0 1px 2px rgba(28,32,30,.06), 0 8px 24px -12px rgba(28,32,30,.18);
   --f-disp:"IBM Plex Sans Condensed","IBM Plex Sans","Arial Narrow",system-ui,sans-serif;
   --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -36,7 +36,7 @@
     --med:#43346E; --med-line:#B9A2F0; --med-ink:#E6DBFF;
     --z-core:#31373F; --z-serv:#2E413A; --z-amen:#463D31; --z-bici:#28474F; --z-green:#344B2D;
     --veh:#5FCB91; --ped:#5CC3E6; --ev:#4FDB84;
-    --evp:#FFD43B; --evp-line:#2A2100; --evp-ink:#FFD43B; --conf:#FF6B4F; --tray:#F07ADF; --sel:#FF5C7A; --accent:#E6905F;
+    --evp:#FFD43B; --evp-line:#2A2100; --evp-ink:#FFD43B; --conf:#FF6B4F; --tray:#F07ADF; --tray-new:#FF5446; --sel:#FF5C7A; --accent:#E6905F;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.6);
     color-scheme:dark;
   }
@@ -54,7 +54,7 @@
   --med:#43346E; --med-line:#B9A2F0; --med-ink:#E6DBFF;
   --z-core:#31373F; --z-serv:#2E413A; --z-amen:#463D31; --z-bici:#28474F; --z-green:#344B2D;
   --veh:#5FCB91; --ped:#5CC3E6; --ev:#4FDB84;
-    --evp:#FFD43B; --evp-line:#2A2100; --evp-ink:#FFD43B; --conf:#FF6B4F; --tray:#F07ADF; --sel:#FF5C7A; --accent:#E6905F;
+    --evp:#FFD43B; --evp-line:#2A2100; --evp-ink:#FFD43B; --conf:#FF6B4F; --tray:#F07ADF; --tray-new:#FF5446; --sel:#FF5C7A; --accent:#E6905F;
   --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.6);
   color-scheme:dark;
 }
@@ -134,6 +134,8 @@ svg.bolt{width:7px;height:11px;margin-left:3px;vertical-align:-1px;fill:var(--ev
 .tray rect.body{fill:var(--tray);stroke:var(--tray);stroke-width:2.6px;vector-effect:non-scaling-stroke;opacity:.92}
 .tray{cursor:pointer}
 .tray:hover rect.body{stroke-width:4px}
+.tray.new rect.body{fill:var(--tray-new);stroke:var(--tray-new);stroke-width:3.4px;opacity:1}
+.lb-trayn{font-family:var(--f-disp);font-weight:700;fill:var(--tray-new);letter-spacing:.06em;paint-order:stroke;stroke:var(--panel);stroke-width:.16}
 .evp-bolt{fill:var(--evp);stroke:var(--evp-line);paint-order:stroke;stroke-linejoin:round}
 svg.boltp{width:7px;height:11px;margin-left:3px;vertical-align:-1px;fill:var(--evp);stroke:var(--evp-line);stroke-width:1}
 .no-evp .boltp,.no-evp .boltp-ui{display:none}
@@ -166,7 +168,7 @@ aside{min-width:0}
 .pill{display:inline-block;font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
   padding:2px 6px;border-radius:2px;border:1px solid currentColor;font-weight:500;line-height:1.3}
 .pill.A{color:var(--ta-line)} .pill.B{color:var(--tb-line)} .pill.free{color:var(--free-ink)} .pill.unk{color:var(--unk-line)}
-.pill.med{color:var(--med-line)} .pill.tray{color:var(--tray)} .pill.ev{color:var(--ev)} .pill.evp{color:var(--evp-ink)} .pill.conf{color:var(--conf)} .pill.fondo{color:var(--ink-3)} .pill.rot{color:var(--ped)} .pill.int{color:var(--accent)} .pill.live{color:var(--accent)}
+.pill.med{color:var(--med-line)} .pill.trayn{color:var(--tray-new)} .pill.tray{color:var(--tray)} .pill.ev{color:var(--ev)} .pill.evp{color:var(--evp-ink)} .pill.conf{color:var(--conf)} .pill.fondo{color:var(--ink-3)} .pill.rot{color:var(--ped)} .pill.int{color:var(--accent)} .pill.live{color:var(--accent)}
 .chips{display:flex;flex-wrap:wrap;gap:4px}
 .chip{font:inherit;font-family:var(--f-mono);font-size:12px;padding:1px 6px;border-radius:2px;cursor:pointer;
   border:1px solid var(--rule-strong);background:var(--panel);color:var(--ink);font-variant-numeric:tabular-nums}
@@ -231,7 +233,7 @@ table.at tr.on td{background:color-mix(in srgb,var(--sel) 10%,transparent)}
     <dl><dt>Nivel de piso</dt><dd>−2,30</dd></dl>
     <dl><dt>Escala origen</dt><dd>1:100</dd></dl>
     <dl><dt>Asignación</dt><dd>2023.08</dd></dl>
-    <dl><dt>Versiones</dt><dd id="vcount">5</dd></dl>
+    <dl><dt>Versiones</dt><dd id="vcount">6</dd></dl>
   </div>
 </header>
 
@@ -247,7 +249,7 @@ para ver todas sus cocheras.</p>
     <div class="plan">
       <div class="plan-bar">
         <span class="ttl">Sub-suelo · cocheras</span>
-        <span class="vchip" id="vchip">v5</span>
+        <span class="vchip" id="vchip">v6</span>
         <div class="seg" role="group" aria-label="Filtrar cocheras">
           <button type="button" id="f-all" data-f="all" aria-pressed="true">Todas</button>
           <button type="button" id="f-A" data-f="A" aria-pressed="false">Torre A</button>
@@ -299,6 +301,7 @@ para ver todas sus cocheras.</p>
           </g>
           <path id="g-cols" fill="var(--col)" stroke="var(--col-line)" stroke-width="0.05"/>
           <g id="g-tray"></g>
+          <g id="g-trayn"></g>
           <g id="g-acc"></g>
           <g id="g-sel"></g>
           <g id="g-labels"></g>
@@ -338,6 +341,7 @@ para ver todas sus cocheras.</p>
           <li>v3: propuesta de 36 cargadores nuevos (rayo amarillo), uno por unidad sin cargador, en dos escenarios: sin permutas o con 5 permutas de cocheras libres.</li>
           <li>v4: ajustes pedidos por vos: 54 → 62, 24 → 52 y un cargador más en la 86.</li>
           <li>v5: bandejas eléctricas de servicios generales, trazadas desde la lámina EL-01 «Potencia sub-suelo» de los planos 2017-12-21.</li>
+          <li>v6: bandeja propuesta en rojo, recta, de la cochera 65 a la 78.</li>
         </ul>
       </div>
       <div>
@@ -386,6 +390,7 @@ para ver todas sus cocheras.</p>
         <label><input type="checkbox" id="l-evp" checked> Propuesta de cargadores</label>
         <label><input type="checkbox" id="l-med" checked> Salas de medidores</label>
         <label><input type="checkbox" id="l-tray" checked> Bandejas eléctricas</label>
+        <label><input type="checkbox" id="l-trayn" checked> Bandeja propuesta (rojo)</label>
         <label><input type="checkbox" id="l-blk" checked> Otras áreas (bloques)</label>
         <label><input type="checkbox" id="l-circ" checked> Circulación vehicular y rampas</label>
         <label><input type="checkbox" id="l-acc" checked> Ingresos</label>
@@ -574,6 +579,19 @@ TRAYS.forEach(function(k){
   BLK["tray-"+k.id]={id:"tray-"+k.id,t:"tray",tray:k,n:"Bandeja servicios generales "+k.w+" × 65",box:r,area:0};
 });
 
+/* bandeja propuesta (recta vertical 65 → 78) */
+var gTrayN=$("g-trayn");
+var NEWTRAY={xc:34.823,y0:7.701,y1:45.865,w:.30,x6469:34.572,x5778:35.073};
+(function(){
+  var k=NEWTRAY,r=[k.xc-k.w/2,k.y0,k.xc+k.w/2,k.y1],g=el("g",{"class":"tray new","data-blk":"tray-new"},gTrayN);
+  el("rect",{"class":"body",x:r[0],y:r[1],width:r[2]-r[0],height:r[3]-r[1]},g);
+  el("rect",{x:r[0],y:r[1],width:r[2]-r[0],height:r[3]-r[1],fill:"none",stroke:"transparent","stroke-width":"10px",
+    "vector-effect":"non-scaling-stroke","pointer-events":"stroke"},g);
+  el("title",{},g).textContent="Bandeja propuesta · cochera 65 → cochera 78";
+  txt(gTrayN,k.xc+.45,k.y1+.95,"BANDEJA PROPUESTA","lb-trayn",.5,"start");
+  BLK["tray-new"]={id:"tray-new",t:"traynew",n:"Bandeja propuesta",box:r,area:0};
+})();
+
 /* escala y norte */
 (function(){
   var x=0,y=64.7,T="var(--ink)";
@@ -678,6 +696,16 @@ function info(){
       (carga?'<dt>Carga</dt><dd style="font-family:var(--f-body)">'+carga+'</dd>':'')+'</dl>'+
       '<table class="at" style="margin-top:10px"><tbody>'+L.map(function(x){return '<tr><td>'+chip(x)+'</td><td style="font-size:12px;color:var(--ink-2)">'+
         GROUPS[x.g]+'</td><td class="n">'+f2(x.ancho)+' × '+f2(x.largo)+'</td></tr>';}).join("")+'</tbody></table>';
+  }else if(state.k==="blk"&&BLK[state.id].t==="traynew"){
+    var nk=NEWTRAY;
+    h='<div class="nm">Bandeja propuesta</div><div style="margin-top:6px"><span class="pill trayn">Propuesta</span></div><dl>'+
+      '<dt>Recorrido</dt><dd style="font-family:var(--f-body)">De la cochera 65 a la 78, en línea recta</dd>'+
+      '<dt>Largo</dt><dd>'+f1(nk.y1-nk.y0)+' m</dd>'+
+      '<dt>Sobre</dt><dd style="font-family:var(--f-body)">Divisorias 64/69, 62/71 y 57/78</dd>'+
+      '<dt>Sección</dt><dd style="font-family:var(--f-body)">A definir (dibujada de 0,30 m)</dd></dl>'+
+      '<p class="src">Las divisorias 64/69 y 62/71 están en x = '+f2(nk.x6469)+' m y la 57/78 en x = '+f2(nk.x5778)+' m: hay un quiebre de 50 cm a la altura de la cochera 59. '+
+      'Para que la bandeja sea recta va en x = '+f2(nk.xc)+' m, a 25 cm de cada divisoria. '+
+      'Arranca sobre la bandeja de 150 × 65 que llega a la sala de medidores de la Torre A, cruza la de 300 × 65 que va al núcleo de la Torre A y termina al fondo de las cocheras 57 y 78.</p>';
   }else if(state.k==="blk"&&BLK[state.id].t==="tray"){
     var tk=BLK[state.id].tray,same=TRAYS.filter(function(x){return x.w===tk.w}).reduce(function(s,x){return s+x.len},0);
     h='<div class="nm">Bandeja eléctrica</div><div style="margin-top:6px"><span class="pill tray">Servicios generales</span> '+
@@ -858,6 +886,7 @@ $("atab").addEventListener("click",panelClick);$("evp-card").addEventListener("c
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><line x1="2" y1="7" x2="26" y2="7" stroke="var(--conf)" stroke-width="3" stroke-linecap="round"/></svg>',"Cargadores contiguos (conflicto)"],
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><line x1="2" y1="7" x2="26" y2="7" stroke="var(--conf)" stroke-width="1.4" stroke-dasharray="3 2.5"/></svg>',"Cargadores que se tocan por el fondo"],
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="5" width="28" height="4" fill="var(--tray)"/></svg>',"Bandeja eléctrica (EL-01)"],
+    ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="5" width="28" height="4" fill="var(--tray-new)"/></svg>',"Bandeja propuesta"],
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="4" width="28" height="6" fill="var(--wall-ext)"/></svg>',"Muro perimetral"],
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="5" width="28" height="4" fill="var(--wall)"/></svg>',"Muro interior"],
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="4" width="28" height="6" fill="var(--panel)" stroke="var(--wall-ext)" stroke-width=".8"/>'+
@@ -910,7 +939,13 @@ $("atab").addEventListener("click",panelClick);$("evp-card").addEventListener("c
       "Dos recorridos simétricos, uno por torre: entran por la medianera izquierda (150 × 65), cruzan hasta la sala de medidores y siguen en 300 × 65 hasta el núcleo de cada torre.",
       "EL-01 y la planta de garajes se superpusieron usando 93 columnas comunes: error medio de 4 cm.",
       "Cinco tramos cortos dentro o junto a las salas de medidores no tienen rótulo propio: la sección sale del ancho dibujado.",
-      "La propuesta de cargadores no cambia respecto de v4."]}];
+      "La propuesta de cargadores no cambia respecto de v4."]},
+   {v:"v6",date:"16-10-2026",title:"Bandeja propuesta",ev:true,prop:true,units:true,evp:"v4",trays:true,trayn:true,
+    summary:"Nueva bandeja en rojo: recta vertical de la cochera 65 a la 78 por las divisorias 64/69, 62/71 y 57/78.",
+    changes:["Bandeja propuesta de 38,2 m, recta y vertical, desde el frente de la cochera 65 hasta el fondo de las 57 y 78.",
+      "Pasa por las divisorias 64/69, 62/71 y 57/78. Como la 57/78 está corrida 50 cm respecto de las otras dos, la recta va por el medio (x = 34,82 m), a 25 cm de cada una.",
+      "Arranca sobre la bandeja de 150 × 65 que llega a la sala de medidores de la Torre A y cruza la de 300 × 65 del núcleo de la Torre A.",
+      "Nueva capa «Bandeja propuesta (rojo)», que se puede ocultar. Sección y altura a definir."]}];
   cur=VERSIONS.length-1;
   renderVersions();
 })();
@@ -945,11 +980,12 @@ function layers(){
   gEv.classList.toggle("hidden",!on("l-ev")||!on("l-bays")||!evOn());
   gEvp.classList.toggle("hidden",!on("l-evp")||!on("l-bays")||!propOn());
   gTray.classList.toggle("hidden",!on("l-tray")||!V().trays);
+  gTrayN.classList.toggle("hidden",!on("l-trayn")||!V().trayn);
   document.body.classList.toggle("no-ev",!evOn()||!on("l-ev"));
   document.body.classList.toggle("no-evp",!propOn()||!on("l-evp"));
   $("gridrect").classList.toggle("hidden",!on("l-grid"));
 }
-["l-bays","l-nums","l-apts","l-ev","l-evp","l-med","l-tray","l-blk","l-circ","l-acc","l-walls","l-cols","l-site","l-live","l-grid"].forEach(function(id){
+["l-bays","l-nums","l-apts","l-ev","l-evp","l-med","l-tray","l-trayn","l-blk","l-circ","l-acc","l-walls","l-cols","l-site","l-live","l-grid"].forEach(function(id){
   $(id).addEventListener("change",layers);});
 
 /* ---------- vista: zoom y desplazamiento ---------- */
