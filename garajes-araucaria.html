@@ -16,7 +16,7 @@
   --med:#DCCFF3; --med-line:#5B3FA0; --med-ink:#3E2879;
   --z-core:#DCE0E7; --z-serv:#D2E1DA; --z-amen:#EFE5D6; --z-bici:#D6EDF2; --z-green:#CFE6C3;
   --veh:#1F7A4D; --ped:#0E6E92; --ev:#14A149;
-  --evp:#FFC400; --evp-line:#5E4800; --evp-ink:#6E5300; --conf:#DC2F1A; --tray:#AE1F98; --tray-new:#E3241B; --sel:#D0284A; --accent:#B4552E;
+  --evp:#FFC400; --evp-line:#5E4800; --evp-ink:#6E5300; --conf:#DC2F1A; --tray:#AE1F98; --tray-new:#E3241B; --route:#0C8A3A; --sel:#D0284A; --accent:#B4552E;
   --shadow:0 1px 2px rgba(28,32,30,.06), 0 8px 24px -12px rgba(28,32,30,.18);
   --f-disp:"IBM Plex Sans Condensed","IBM Plex Sans","Arial Narrow",system-ui,sans-serif;
   --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -36,7 +36,7 @@
     --med:#43346E; --med-line:#B9A2F0; --med-ink:#E6DBFF;
     --z-core:#31373F; --z-serv:#2E413A; --z-amen:#463D31; --z-bici:#28474F; --z-green:#344B2D;
     --veh:#5FCB91; --ped:#5CC3E6; --ev:#4FDB84;
-    --evp:#FFD43B; --evp-line:#2A2100; --evp-ink:#FFD43B; --conf:#FF6B4F; --tray:#F07ADF; --tray-new:#FF5446; --sel:#FF5C7A; --accent:#E6905F;
+    --evp:#FFD43B; --evp-line:#2A2100; --evp-ink:#FFD43B; --conf:#FF6B4F; --tray:#F07ADF; --tray-new:#FF5446; --route:#5BE08E; --sel:#FF5C7A; --accent:#E6905F;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.6);
     color-scheme:dark;
   }
@@ -54,7 +54,7 @@
   --med:#43346E; --med-line:#B9A2F0; --med-ink:#E6DBFF;
   --z-core:#31373F; --z-serv:#2E413A; --z-amen:#463D31; --z-bici:#28474F; --z-green:#344B2D;
   --veh:#5FCB91; --ped:#5CC3E6; --ev:#4FDB84;
-    --evp:#FFD43B; --evp-line:#2A2100; --evp-ink:#FFD43B; --conf:#FF6B4F; --tray:#F07ADF; --tray-new:#FF5446; --sel:#FF5C7A; --accent:#E6905F;
+    --evp:#FFD43B; --evp-line:#2A2100; --evp-ink:#FFD43B; --conf:#FF6B4F; --tray:#F07ADF; --tray-new:#FF5446; --route:#5BE08E; --sel:#FF5C7A; --accent:#E6905F;
   --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.6);
   color-scheme:dark;
 }
@@ -134,6 +134,10 @@ svg.bolt{width:7px;height:11px;margin-left:3px;vertical-align:-1px;fill:var(--ev
 .tray rect.body{fill:var(--tray);stroke:var(--tray);stroke-width:2.6px;vector-effect:non-scaling-stroke;opacity:.92}
 .tray{cursor:pointer}
 .tray:hover rect.body{stroke-width:4px}
+.route path.ln{fill:none;stroke:var(--route);stroke-width:1.6px;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.route circle{fill:var(--route)}
+.route{cursor:pointer}
+.route:hover path.ln{stroke-width:3px}
 .tray.new rect.body{fill:var(--tray-new);stroke:var(--tray-new);stroke-width:3.4px;opacity:1}
 .lb-trayn{font-family:var(--f-disp);font-weight:700;fill:var(--tray-new);letter-spacing:.06em;paint-order:stroke;stroke:var(--panel);stroke-width:.16}
 .evp-bolt{fill:var(--evp);stroke:var(--evp-line);paint-order:stroke;stroke-linejoin:round}
@@ -168,7 +172,7 @@ aside{min-width:0}
 .pill{display:inline-block;font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
   padding:2px 6px;border-radius:2px;border:1px solid currentColor;font-weight:500;line-height:1.3}
 .pill.A{color:var(--ta-line)} .pill.B{color:var(--tb-line)} .pill.free{color:var(--free-ink)} .pill.unk{color:var(--unk-line)}
-.pill.med{color:var(--med-line)} .pill.trayn{color:var(--tray-new)} .pill.tray{color:var(--tray)} .pill.ev{color:var(--ev)} .pill.evp{color:var(--evp-ink)} .pill.conf{color:var(--conf)} .pill.fondo{color:var(--ink-3)} .pill.rot{color:var(--ped)} .pill.int{color:var(--accent)} .pill.live{color:var(--accent)}
+.pill.med{color:var(--med-line)} .pill.route{color:var(--route)} .pill.trayn{color:var(--tray-new)} .pill.tray{color:var(--tray)} .pill.ev{color:var(--ev)} .pill.evp{color:var(--evp-ink)} .pill.conf{color:var(--conf)} .pill.fondo{color:var(--ink-3)} .pill.rot{color:var(--ped)} .pill.int{color:var(--accent)} .pill.live{color:var(--accent)}
 .chips{display:flex;flex-wrap:wrap;gap:4px}
 .chip{font:inherit;font-family:var(--f-mono);font-size:12px;padding:1px 6px;border-radius:2px;cursor:pointer;
   border:1px solid var(--rule-strong);background:var(--panel);color:var(--ink);font-variant-numeric:tabular-nums}
@@ -233,7 +237,7 @@ table.at tr.on td{background:color-mix(in srgb,var(--sel) 10%,transparent)}
     <dl><dt>Nivel de piso</dt><dd>−2,30</dd></dl>
     <dl><dt>Escala origen</dt><dd>1:100</dd></dl>
     <dl><dt>Asignación</dt><dd>2023.08</dd></dl>
-    <dl><dt>Versiones</dt><dd id="vcount">6</dd></dl>
+    <dl><dt>Versiones</dt><dd id="vcount">7</dd></dl>
   </div>
 </header>
 
@@ -249,7 +253,7 @@ para ver todas sus cocheras.</p>
     <div class="plan">
       <div class="plan-bar">
         <span class="ttl">Sub-suelo · cocheras</span>
-        <span class="vchip" id="vchip">v6</span>
+        <span class="vchip" id="vchip">v7</span>
         <div class="seg" role="group" aria-label="Filtrar cocheras">
           <button type="button" id="f-all" data-f="all" aria-pressed="true">Todas</button>
           <button type="button" id="f-A" data-f="A" aria-pressed="false">Torre A</button>
@@ -302,6 +306,7 @@ para ver todas sus cocheras.</p>
           <path id="g-cols" fill="var(--col)" stroke="var(--col-line)" stroke-width="0.05"/>
           <g id="g-tray"></g>
           <g id="g-trayn"></g>
+          <g id="g-route"></g>
           <g id="g-acc"></g>
           <g id="g-sel"></g>
           <g id="g-labels"></g>
@@ -342,6 +347,7 @@ para ver todas sus cocheras.</p>
           <li>v4: ajustes pedidos por vos: 54 → 62, 24 → 52 y un cargador más en la 86.</li>
           <li>v5: bandejas eléctricas de servicios generales, trazadas desde la lámina EL-01 «Potencia sub-suelo» de los planos 2017-12-21.</li>
           <li>v6: bandeja propuesta en rojo, recta, de la cochera 65 a la 78.</li>
+          <li>v7: tendidos en verde desde las bandejas hasta cada cargador propuesto.</li>
         </ul>
       </div>
       <div>
@@ -391,6 +397,7 @@ para ver todas sus cocheras.</p>
         <label><input type="checkbox" id="l-med" checked> Salas de medidores</label>
         <label><input type="checkbox" id="l-tray" checked> Bandejas eléctricas</label>
         <label><input type="checkbox" id="l-trayn" checked> Bandeja propuesta (rojo)</label>
+        <label><input type="checkbox" id="l-route" checked> Tendidos a cargadores (verde)</label>
         <label><input type="checkbox" id="l-blk" checked> Otras áreas (bloques)</label>
         <label><input type="checkbox" id="l-circ" checked> Circulación vehicular y rampas</label>
         <label><input type="checkbox" id="l-acc" checked> Ingresos</label>
@@ -419,6 +426,7 @@ var G={"wext":"M34.56 62.80L59.02 62.80L59.02 62.55L34.56 62.55ZM34.56 0.00L34.5
 var EVP={"merge":{"A001":"A001+A002","A002":"A001+A002","B201":"B201+B202","B202":"B201+B202"},"sc":{"A":{"rows":[{"u":"A001+A002","n":"07","swap":false,"own":["06","07","08"]},{"u":"A003","n":"35","swap":false,"own":["33","35"]},{"u":"A004","n":"03","swap":false,"own":["03","45"]},{"u":"A005","n":"69","swap":false,"own":["69","97"]},{"u":"A006","n":"70","swap":false,"own":["70","95"]},{"u":"A007","n":"100","swap":false,"own":["100"]},{"u":"A008","n":"96","swap":false,"own":["71","96"]},{"u":"A009","n":"34","swap":false,"own":["34"]},{"u":"A101","n":"09","swap":false,"own":["09","31"]},{"u":"A102","n":"39","swap":false,"own":["02","39"]},{"u":"A104","n":"01","swap":false,"own":["01","46"]},{"u":"A105","n":"92","swap":false,"own":["68","92"]},{"u":"A106","n":"67","swap":false,"own":["67","93"]},{"u":"A107","n":"99","swap":false,"own":["99"]},{"u":"A108","n":"72","swap":false,"own":["72","91"]},{"u":"A109","n":"90","swap":false,"own":["73","90"]},{"u":"A201","n":"05","swap":false,"own":["05"]},{"u":"A202","n":"38","swap":false,"own":["04","37","38"]},{"u":"A203","n":"66","swap":false,"own":["66","98"]},{"u":"A204","n":"94","swap":false,"own":["94"]},{"u":"B001","n":"25","swap":false,"own":["25"]},{"u":"B002","n":"79","swap":false,"own":["26","79"]},{"u":"B003","n":"81","swap":false,"own":["81"]},{"u":"B004","n":"84","swap":false,"own":["56","84"]},{"u":"B005","n":"57","swap":false,"own":["22","57"]},{"u":"B006","n":"51","swap":false,"own":["18","51"]},{"u":"B009","n":"21","swap":false,"own":["21"]},{"u":"B101","n":"88","swap":false,"own":["75","88"]},{"u":"B102","n":"76","swap":false,"own":["76","83"]},{"u":"B103","n":"82","swap":false,"own":["82"]},{"u":"B104","n":"58","swap":false,"own":["58","85"]},{"u":"B105","n":"13","swap":false,"own":["13","55"]},{"u":"B109","n":"74","swap":false,"own":["74","89"]},{"u":"B201+B202","n":"54","swap":false,"own":["54","60","61","62","86","87"]},{"u":"B204","n":"15","swap":false,"own":["15","27"]},{"u":"B205","n":"24","swap":false,"own":["24","52","53"]}],"cons":[{"a":"34","b":"35","k":"lado","s":[11.05,21.4,15.85,21.4],"ex":[]},{"a":"38","b":"39","k":"fondo","s":[15.77,6.25,15.77,8.15],"ex":[]},{"a":"50","b":"51","k":"lado","s":[16.0,37.37,21.79,37.37],"ex":["50"]},{"a":"58","b":"76","k":"fondo","s":[35.07,38.45,35.07,39.95],"ex":[]},{"a":"69","b":"70","k":"lado","s":[34.57,24.35,39.37,24.35],"ex":[]},{"a":"81","b":"82","k":"lado","s":[45.37,54.05,50.17,54.05],"ex":[]},{"a":"99","b":"100","k":"lado","s":[45.37,8.75,50.17,8.75],"ex":[]}]},"B":{"rows":[{"u":"A001+A002","n":"07","swap":false,"own":["06","07","08"]},{"u":"A003","n":"36","swap":true,"own":["33","35"]},{"u":"A004","n":"03","swap":false,"own":["03","45"]},{"u":"A005","n":"69","swap":false,"own":["69","97"]},{"u":"A006","n":"63","swap":true,"own":["70","95"]},{"u":"A007","n":"100","swap":false,"own":["100"]},{"u":"A008","n":"96","swap":false,"own":["71","96"]},{"u":"A009","n":"34","swap":false,"own":["34"]},{"u":"A101","n":"09","swap":false,"own":["09","31"]},{"u":"A102","n":"39","swap":false,"own":["02","39"]},{"u":"A104","n":"01","swap":false,"own":["01","46"]},{"u":"A105","n":"92","swap":false,"own":["68","92"]},{"u":"A106","n":"67","swap":false,"own":["67","93"]},{"u":"A107","n":"65","swap":true,"own":["99"]},{"u":"A108","n":"72","swap":false,"own":["72","91"]},{"u":"A109","n":"90","swap":false,"own":["73","90"]},{"u":"A201","n":"05","swap":false,"own":["05"]},{"u":"A202","n":"38","swap":false,"own":["04","37","38"]},{"u":"A203","n":"98","swap":false,"own":["66","98"]},{"u":"A204","n":"94","swap":false,"own":["94"]},{"u":"B001","n":"25","swap":false,"own":["25"]},{"u":"B002","n":"79","swap":false,"own":["26","79"]},{"u":"B003","n":"81","swap":false,"own":["81"]},{"u":"B004","n":"84","swap":false,"own":["56","84"]},{"u":"B005","n":"57","swap":false,"own":["22","57"]},{"u":"B006","n":"11","swap":true,"own":["18","51"]},{"u":"B009","n":"21","swap":false,"own":["21"]},{"u":"B101","n":"88","swap":false,"own":["75","88"]},{"u":"B102","n":"76","swap":false,"own":["76","83"]},{"u":"B103","n":"78","swap":true,"own":["82"]},{"u":"B104","n":"58","swap":false,"own":["58","85"]},{"u":"B105","n":"13","swap":false,"own":["13","55"]},{"u":"B109","n":"74","swap":false,"own":["74","89"]},{"u":"B201+B202","n":"54","swap":false,"own":["54","60","61","62","86","87"]},{"u":"B204","n":"15","swap":false,"own":["15","27"]},{"u":"B205","n":"24","swap":false,"own":["24","52","53"]}],"cons":[{"a":"38","b":"39","k":"fondo","s":[15.77,6.25,15.77,8.15],"ex":[]},{"a":"57","b":"78","k":"fondo","s":[35.07,43.37,35.07,45.86],"ex":[]},{"a":"58","b":"76","k":"fondo","s":[35.07,38.45,35.07,39.95],"ex":[]}]}}};
 var EVP4={"merge":{"A001":"A001+A002","A002":"A001+A002","B201":"B201+B202","B202":"B201+B202"},"sc":{"A":{"rows":[{"u":"A001+A002","n":"07","swap":false,"own":["06","07","08"]},{"u":"A003","n":"35","swap":false,"own":["33","35"]},{"u":"A004","n":"03","swap":false,"own":["03","45"]},{"u":"A005","n":"69","swap":false,"own":["69","97"]},{"u":"A006","n":"70","swap":false,"own":["70","95"]},{"u":"A007","n":"100","swap":false,"own":["100"]},{"u":"A008","n":"96","swap":false,"own":["71","96"]},{"u":"A009","n":"34","swap":false,"own":["34"]},{"u":"A101","n":"09","swap":false,"own":["09","31"]},{"u":"A102","n":"39","swap":false,"own":["02","39"]},{"u":"A104","n":"01","swap":false,"own":["01","46"]},{"u":"A105","n":"92","swap":false,"own":["68","92"]},{"u":"A106","n":"67","swap":false,"own":["67","93"]},{"u":"A107","n":"99","swap":false,"own":["99"]},{"u":"A108","n":"72","swap":false,"own":["72","91"]},{"u":"A109","n":"90","swap":false,"own":["73","90"]},{"u":"A201","n":"05","swap":false,"own":["05"]},{"u":"A202","n":"38","swap":false,"own":["04","37","38"]},{"u":"A203","n":"66","swap":false,"own":["66","98"]},{"u":"A204","n":"94","swap":false,"own":["94"]},{"u":"B001","n":"25","swap":false,"own":["25"]},{"u":"B002","n":"79","swap":false,"own":["26","79"]},{"u":"B003","n":"81","swap":false,"own":["81"]},{"u":"B004","n":"84","swap":false,"own":["56","84"]},{"u":"B005","n":"57","swap":false,"own":["22","57"]},{"u":"B006","n":"51","swap":false,"own":["18","51"]},{"u":"B009","n":"21","swap":false,"own":["21"]},{"u":"B101","n":"88","swap":false,"own":["75","88"]},{"u":"B102","n":"76","swap":false,"own":["76","83"]},{"u":"B103","n":"82","swap":false,"own":["82"]},{"u":"B104","n":"58","swap":false,"own":["58","85"]},{"u":"B105","n":"13","swap":false,"own":["13","55"]},{"u":"B109","n":"74","swap":false,"own":["74","89"]},{"u":"B201+B202","n":"62","swap":false,"own":["54","60","61","62","86","87"]},{"u":"B201+B202","n":"86","swap":false,"own":["54","60","61","62","86","87"]},{"u":"B204","n":"15","swap":false,"own":["15","27"]},{"u":"B205","n":"52","swap":false,"own":["24","52","53"]}],"cons":[{"a":"34","b":"35","k":"lado","s":[11.05,21.4,15.85,21.4],"ex":[]},{"a":"38","b":"39","k":"fondo","s":[15.77,6.25,15.77,8.15],"ex":[]},{"a":"50","b":"51","k":"lado","s":[16.0,37.37,21.79,37.37],"ex":["50"]},{"a":"58","b":"76","k":"fondo","s":[35.07,38.45,35.07,39.95],"ex":[]},{"a":"62","b":"72","k":"fondo","s":[34.57,29.09,34.57,30.13],"ex":[]},{"a":"69","b":"70","k":"lado","s":[34.57,24.35,39.37,24.35],"ex":[]},{"a":"81","b":"82","k":"lado","s":[45.37,54.05,50.17,54.05],"ex":[]},{"a":"99","b":"100","k":"lado","s":[45.37,8.75,50.17,8.75],"ex":[]}]},"B":{"rows":[{"u":"A001+A002","n":"07","swap":false,"own":["06","07","08"]},{"u":"A003","n":"36","swap":true,"own":["33","35"]},{"u":"A004","n":"03","swap":false,"own":["03","45"]},{"u":"A005","n":"69","swap":false,"own":["69","97"]},{"u":"A006","n":"64","swap":true,"own":["70","95"]},{"u":"A007","n":"100","swap":false,"own":["100"]},{"u":"A008","n":"96","swap":false,"own":["71","96"]},{"u":"A009","n":"34","swap":false,"own":["34"]},{"u":"A101","n":"09","swap":false,"own":["09","31"]},{"u":"A102","n":"39","swap":false,"own":["02","39"]},{"u":"A104","n":"01","swap":false,"own":["01","46"]},{"u":"A105","n":"92","swap":false,"own":["68","92"]},{"u":"A106","n":"67","swap":false,"own":["67","93"]},{"u":"A107","n":"65","swap":true,"own":["99"]},{"u":"A108","n":"72","swap":false,"own":["72","91"]},{"u":"A109","n":"90","swap":false,"own":["73","90"]},{"u":"A201","n":"05","swap":false,"own":["05"]},{"u":"A202","n":"38","swap":false,"own":["04","37","38"]},{"u":"A203","n":"98","swap":false,"own":["66","98"]},{"u":"A204","n":"94","swap":false,"own":["94"]},{"u":"B001","n":"25","swap":false,"own":["25"]},{"u":"B002","n":"79","swap":false,"own":["26","79"]},{"u":"B003","n":"81","swap":false,"own":["81"]},{"u":"B004","n":"84","swap":false,"own":["56","84"]},{"u":"B005","n":"57","swap":false,"own":["22","57"]},{"u":"B006","n":"11","swap":true,"own":["18","51"]},{"u":"B009","n":"21","swap":false,"own":["21"]},{"u":"B101","n":"88","swap":false,"own":["75","88"]},{"u":"B102","n":"76","swap":false,"own":["76","83"]},{"u":"B103","n":"78","swap":true,"own":["82"]},{"u":"B104","n":"58","swap":false,"own":["58","85"]},{"u":"B105","n":"13","swap":false,"own":["13","55"]},{"u":"B109","n":"74","swap":false,"own":["74","89"]},{"u":"B201+B202","n":"62","swap":false,"own":["54","60","61","62","86","87"]},{"u":"B201+B202","n":"86","swap":false,"own":["54","60","61","62","86","87"]},{"u":"B204","n":"15","swap":false,"own":["15","27"]},{"u":"B205","n":"52","swap":false,"own":["24","52","53"]}],"cons":[{"a":"38","b":"39","k":"fondo","s":[15.77,6.25,15.77,8.15],"ex":[]},{"a":"57","b":"78","k":"fondo","s":[35.07,43.37,35.07,45.86],"ex":[]},{"a":"58","b":"76","k":"fondo","s":[35.07,38.45,35.07,39.95],"ex":[]},{"a":"62","b":"72","k":"fondo","s":[34.57,29.09,34.57,30.13],"ex":[]},{"a":"64","b":"69","k":"fondo","s":[34.57,22.93,34.57,24.35],"ex":[]}]}}};
 var TRAYS=[{"id":"T1","r":[14.58,0.2,14.73,7.95],"w":150,"lab":1,"len":7.75},{"id":"T2","r":[14.58,7.8,36.6,7.95],"w":150,"lab":1,"len":22.02},{"id":"T3","r":[36.6,7.71,36.9,12.36],"w":300,"lab":1,"len":4.65},{"id":"T4","r":[30.25,12.05,36.9,12.36],"w":300,"lab":1,"len":6.65},{"id":"T5","r":[30.25,12.05,30.55,16.4],"w":300,"lab":1,"len":4.35},{"id":"T6","r":[18.06,16.4,32.33,16.71],"w":300,"lab":1,"len":14.27},{"id":"T7","r":[36.1,5.16,38.8,5.46],"w":300,"lab":0,"len":2.7},{"id":"T8","r":[36.6,5.73,39.3,6.03],"w":300,"lab":0,"len":2.7},{"id":"T9","r":[36.1,7.2,38.55,7.5],"w":300,"lab":0,"len":2.45},{"id":"T10","r":[36.6,5.73,36.9,7.05],"w":300,"lab":0,"len":1.32},{"id":"T11","r":[18.06,46.01,32.33,46.31],"w":300,"lab":1,"len":14.27},{"id":"T12","r":[26.35,46.31,26.65,50.56],"w":300,"lab":1,"len":4.25},{"id":"T13","r":[26.35,50.26,36.95,50.56],"w":300,"lab":1,"len":10.6},{"id":"T14","r":[36.65,50.26,36.95,55.21],"w":300,"lab":1,"len":4.95},{"id":"T15","r":[36.4,55.21,36.55,57.41],"w":150,"lab":0,"len":2.2},{"id":"T16","r":[14.58,57.26,36.55,57.41],"w":150,"lab":1,"len":21.97},{"id":"T17","r":[14.58,57.26,14.73,62.51],"w":150,"lab":1,"len":5.25}];
+var ROUTES={"01":{"g":"rosa","src":"T1","pts":[[14.66,1.45],[0.7,1.45]],"H":13.96,"V":0,"L":13.96,"core":0.0},"03":{"g":"rosa","src":"T1","pts":[[14.66,6.6],[0.7,6.6]],"H":13.96,"V":0,"L":13.96,"core":0.0},"05":{"g":"rosa","src":"T1","pts":[[14.66,7.95],[0.7,7.95],[0.7,11.5]],"H":13.96,"V":3.55,"L":17.51,"core":0.0},"07":{"g":"perim_norte","src":"ROJA","pts":[[34.82,24.6],[0.7,24.6],[0.7,20.96]],"H":34.12,"V":3.64,"L":37.76,"core":0.0},"09":{"g":"perim_norte","src":"ROJA","pts":[[34.82,25.55],[0.7,25.55]],"H":34.12,"V":0,"L":34.12,"core":0.0},"11":{"g":"perim_norte","src":"ROJA","pts":[[34.82,30.25],[0.7,30.25]],"H":34.12,"V":0,"L":34.12,"core":0.0},"13":{"g":"perim_norte","src":"ROJA","pts":[[34.82,34.7],[0.7,34.7]],"H":34.12,"V":0,"L":34.12,"core":0.0},"15":{"g":"perim_norte","src":"ROJA","pts":[[34.82,39.7],[0.7,39.7]],"H":34.12,"V":0,"L":34.12,"core":0.0},"21":{"g":"rosa","src":"T17","pts":[[14.66,58.91],[0.7,58.91]],"H":13.96,"V":0,"L":13.96,"core":0.0},"25":{"g":"medio","src":"ROJA","pts":[[34.82,39.7],[15.4,39.7],[15.4,44.8]],"H":19.42,"V":5.1,"L":24.52,"core":0.0},"34":{"g":"rosa","src":"T2","pts":[[14.73,7.88],[14.73,21.85],[15.4,21.85]],"H":0.67,"V":13.97,"L":14.64,"core":5.0},"35":{"g":"rosa","src":"T2","pts":[[14.73,7.88],[14.73,18.9],[15.4,18.9]],"H":0.67,"V":11.02,"L":11.69,"core":5.0},"36":{"g":"rosa","src":"T2","pts":[[14.73,7.88],[14.73,16.5],[15.4,16.5]],"H":0.67,"V":8.62,"L":9.29,"core":5.0},"38":{"g":"rosa","src":"T2","pts":[[15.23,7.88],[15.23,7.7],[15.25,7.7]],"H":0.02,"V":0.17,"L":0.19,"core":0.0},"39":{"g":"rosa","src":"T2","pts":[[17.18,7.88],[17.18,12.05]],"H":0,"V":4.18,"L":4.18,"core":0.0},"51":{"g":"medio","src":"ROJA","pts":[[34.82,38.6],[16.45,38.6]],"H":18.37,"V":0,"L":18.37,"core":0.0},"52":{"g":"rosa","src":"T16","pts":[[15.73,57.33],[15.73,52.73],[16.3,52.73]],"H":0.57,"V":4.6,"L":5.17,"core":0.0},"57":{"g":"medio","src":"ROJA","pts":[[34.82,44.4],[34.62,44.4]],"H":0.2,"V":0,"L":0.2,"core":0.0},"58":{"g":"medio","src":"ROJA","pts":[[34.82,38.65],[34.62,38.65]],"H":0.2,"V":0,"L":0.2,"core":0.0},"62":{"g":"medio","src":"ROJA","pts":[[34.82,28.85],[34.12,28.85]],"H":0.7,"V":0,"L":0.7,"core":0.0},"64":{"g":"medio","src":"ROJA","pts":[[34.82,24.15],[34.12,24.15]],"H":0.7,"V":0,"L":0.7,"core":0.0},"65":{"g":"medio","src":"ROJA","pts":[[34.82,8.9],[35.17,8.9]],"H":0.35,"V":0,"L":0.35,"core":0.0},"66":{"g":"medio","src":"ROJA","pts":[[34.82,11.3],[35.17,11.3]],"H":0.35,"V":0,"L":0.35,"core":0.0},"67":{"g":"medio","src":"ROJA","pts":[[34.82,18.15],[35.02,18.15]],"H":0.2,"V":0,"L":0.2,"core":0.0},"69":{"g":"medio","src":"ROJA","pts":[[34.82,23.1],[35.02,23.1]],"H":0.2,"V":0,"L":0.2,"core":0.0},"70":{"g":"medio","src":"ROJA","pts":[[34.82,25.55],[35.02,25.55]],"H":0.2,"V":0,"L":0.2,"core":0.0},"72":{"g":"medio","src":"ROJA","pts":[[34.82,30.25],[35.02,30.25]],"H":0.2,"V":0,"L":0.2,"core":0.0},"74":{"g":"medio","src":"ROJA","pts":[[34.82,34.9],[35.52,34.9]],"H":0.7,"V":0,"L":0.7,"core":0.0},"76":{"g":"medio","src":"ROJA","pts":[[34.82,39.65],[35.52,39.65]],"H":0.7,"V":0,"L":0.7,"core":0.0},"78":{"g":"medio","src":"ROJA","pts":[[34.82,44.6],[35.52,44.6]],"H":0.7,"V":0,"L":0.7,"core":0.0},"79":{"g":"rosa","src":"T13","pts":[[35.5,50.41],[35.5,50.75],[35.52,50.75]],"H":0.02,"V":0.34,"L":0.36,"core":0.0},"81":{"g":"perim_tajes","src":"T14","pts":[[36.8,54.96],[49.72,54.96]],"H":12.92,"V":0,"L":12.92,"core":0.0},"82":{"g":"perim_tajes","src":"T14","pts":[[36.8,53.01],[49.72,53.01]],"H":12.92,"V":0,"L":12.92,"core":0.0},"84":{"g":"perim_tajes","src":"T13","pts":[[36.95,50.41],[49.72,50.41],[49.72,48.8]],"H":12.77,"V":1.61,"L":14.38,"core":0.0},"86":{"g":"perim_tajes","src":"ROJA","pts":[[34.82,42.95],[49.72,42.95]],"H":14.9,"V":0,"L":14.9,"core":0.0},"88":{"g":"perim_tajes","src":"ROJA","pts":[[34.82,37.25],[49.72,37.25]],"H":14.9,"V":0,"L":14.9,"core":0.0},"90":{"g":"perim_tajes","src":"ROJA","pts":[[34.82,32.55],[49.72,32.55]],"H":14.9,"V":0,"L":14.9,"core":0.0},"92":{"g":"perim_tajes","src":"ROJA","pts":[[34.82,27.9],[49.72,27.9]],"H":14.9,"V":0,"L":14.9,"core":0.0},"94":{"g":"perim_tajes","src":"ROJA","pts":[[34.82,22.85],[49.72,22.85]],"H":14.9,"V":0,"L":14.9,"core":0.0},"96":{"g":"perim_tajes","src":"ROJA","pts":[[34.82,17.15],[49.72,17.15]],"H":14.9,"V":0,"L":14.9,"core":0.0},"98":{"g":"perim_tajes","src":"T4","pts":[[36.9,12.21],[49.72,12.21]],"H":12.82,"V":0,"L":12.82,"core":0.0},"99":{"g":"perim_tajes","src":"T3","pts":[[36.75,9.81],[49.72,9.81]],"H":12.97,"V":0,"L":12.97,"core":0.0},"100":{"g":"perim_tajes","src":"T3","pts":[[36.75,7.81],[49.72,7.81]],"H":12.97,"V":0,"L":12.97,"core":0.0}};
 (function(){
 var NS="http://www.w3.org/2000/svg";
 function $(id){return document.getElementById(id);}
@@ -633,7 +641,7 @@ function unitBays(u){return BAYS.filter(function(b){return inUnit(b,u);});}
 function paint(){
   var apt=selApt();
   BAYS.forEach(function(b){bayNode[b.n].classList.toggle("dim",!!isDim(b,apt));});
-  dimGroup(gEv,"data-ev",apt);dimGroup(gEvp,"data-n",apt);
+  dimGroup(gEv,"data-ev",apt);dimGroup(gEvp,"data-n",apt);dimGroup(gRoute,"data-n",apt);
   ["lb-nums","lb-apts"].forEach(function(id){var kids=$(id).childNodes;
     for(var i=0;i<kids.length;i++)kids[i].classList.toggle("dim",!!isDim(BAYS[i],apt));});
   clear(gSel);
@@ -681,6 +689,7 @@ function info(){
       '<dt>Medidas</dt><dd>'+f2(b.ancho)+' × '+f2(b.largo)+' m</dd>'+
       '<dt>Superficie</dt><dd>'+f1(b.area)+' m²</dd>'+
       (evOn()?'<dt>Cargador</dt><dd style="font-family:var(--f-body)">'+chargerText(b)+'</dd>':'')+
+      (routesOn()&&PROP[b.n]&&ROUTES[b.n]?'<dt>Tendido</dt><dd style="font-family:var(--f-body)">'+f1(ROUTES[b.n].L)+' m desde la '+srcName(ROUTES[b.n].src)+'</dd>':'')+
       '<dt>Ubicación</dt><dd style="font-family:var(--f-body)">'+GROUPS[b.g]+'</dd>'+
       (sib.length>1?'<dt>Misma unidad</dt><dd><div class="chips">'+sib.filter(function(x){return x!==b}).map(chip).join("")+'</div></dd>':'')+
       '</dl>'+consHtml(b.n)+
@@ -696,6 +705,17 @@ function info(){
       (carga?'<dt>Carga</dt><dd style="font-family:var(--f-body)">'+carga+'</dd>':'')+'</dl>'+
       '<table class="at" style="margin-top:10px"><tbody>'+L.map(function(x){return '<tr><td>'+chip(x)+'</td><td style="font-size:12px;color:var(--ink-2)">'+
         GROUPS[x.g]+'</td><td class="n">'+f2(x.ancho)+' × '+f2(x.largo)+'</td></tr>';}).join("")+'</tbody></table>';
+  }else if(state.k==="blk"&&BLK[state.id].t==="route"){
+    var bn=BLK[state.id].bay,R=ROUTES[bn],pr=PROP[bn];
+    h='<div class="nm">Tendido a la cochera '+bn+'</div><div style="margin-top:6px"><span class="pill route">Propuesta</span> '+
+      (pr?'<span class="pill evp">'+unitLabel(pr.u)+'</span>':'')+'</div><dl>'+
+      '<dt>Desde</dt><dd style="font-family:var(--f-body)">'+srcName(R.src)+'</dd>'+
+      '<dt>Largo</dt><dd>'+f1(R.L)+' m</dd>'+
+      '<dt>Horizontal</dt><dd>'+f1(R.H)+' m</dd>'+
+      '<dt>Vertical</dt><dd>'+f1(R.V)+' m</dd>'+
+      '<dt>Cochera</dt><dd><div class="chips">'+chip(BY[bn])+'</div></dd></dl>'+
+      '<p class="src">'+RULE_TXT[R.g]+' Libre de columnas, muros y locales, con 10 cm de holgura.'+
+      (R.core>0?' Pasa '+f1(R.core)+' m por el hall del núcleo, donde ya corren las bandejas existentes.':'')+'</p>';
   }else if(state.k==="blk"&&BLK[state.id].t==="traynew"){
     var nk=NEWTRAY;
     h='<div class="nm">Bandeja propuesta</div><div style="margin-top:6px"><span class="pill trayn">Propuesta</span></div><dl>'+
@@ -755,7 +775,7 @@ function renderVersions(){
       x.changes.map(function(c){return '<li>'+c+'</li>'}).join("")+'</ul></div>';}
   $("vlist").innerHTML=h;
 }
-function refresh(){buildUnits();buildProp();renderPanel();drawEvp();layers();paint();}
+function refresh(){buildUnits();buildProp();renderPanel();drawEvp();drawRoutes();layers();paint();}
 $("vlist").addEventListener("click",function(e){var b=e.target.closest(".vitem");if(!b)return;
   cur=+b.getAttribute("data-v");state={k:null,id:null};renderVersions();refresh();});
 
@@ -788,6 +808,30 @@ function drawEvp(){
       txt(g,cx,(q[1]+q[3])/2-.05,"→ "+unitLabel(r.u),"lb-swap",.55);}
   });
 }
+
+/* ---------- tendidos a cargadores propuestos ---------- */
+var gRoute=$("g-route");
+var RULE_TXT={perim_tajes:"Batería 81–100: horizontal desde la bandeja roja o la existente más cercana y, si hace falta, un tramo vertical corto dentro de la cochera.",
+  perim_norte:"Batería 7–17: horizontal desde la bandeja roja y un tramo vertical en la cochera.",
+  rosa:"Desde la bandeja rosada (existente) más próxima.",
+  medio:"Sector intermedio: prioridad al tendido horizontal, con un tramo vertical corto."};
+function srcName(id){if(id==="ROJA")return "bandeja roja propuesta";
+  var t=TRAYS.filter(function(x){return x.id===id})[0];return "bandeja "+t.w+" × 65 existente ("+id+")";}
+function routesOn(){return !!V().routes&&propOn();}
+function drawRoutes(){
+  clear(gRoute);if(!routesOn())return;
+  E().sc[scen].rows.forEach(function(r){var R=ROUTES[r.n];if(!R)return;
+    var g=el("g",{"class":"route","data-blk":"route-"+r.n,"data-n":r.n},gRoute);
+    var d=R.pts.map(function(p,i){return (i?"L":"M")+p[0]+" "+p[1];}).join("");
+    el("path",{"class":"ln",d:d},g);
+    el("path",{d:d,fill:"none",stroke:"transparent","stroke-width":"10px","vector-effect":"non-scaling-stroke","pointer-events":"stroke"},g);
+    var e=R.pts[R.pts.length-1];el("circle",{cx:e[0],cy:e[1],r:.2},g);
+    el("title",{},g).textContent="Tendido a la cochera "+r.n+" · "+f1(R.L)+" m";
+    BLK["route-"+r.n]={id:"route-"+r.n,t:"route",n:"Tendido a la cochera "+r.n,box:rsBox([[Math.min.apply(0,R.pts.map(function(p){return p[0]})),
+      Math.min.apply(0,R.pts.map(function(p){return p[1]})),Math.max.apply(0,R.pts.map(function(p){return p[0]})),Math.max.apply(0,R.pts.map(function(p){return p[1]}))]]),area:0,bay:r.n};
+  });
+}
+function routeTotal(){if(!routesOn())return 0;return E().sc[scen].rows.reduce(function(s,r){return s+(ROUTES[r.n]?ROUTES[r.n].L:0)},0);}
 
 /* ---------- panel ---------- */
 function renderPanel(){
@@ -854,6 +898,7 @@ function renderPanel(){
     sh+='<ul class="clist">'+sw.map(function(r){return '<li><b>'+unitLabel(r.u)+'</b> recibe la libre <button type="button" class="chip free" data-n="'+r.n+'">'+r.n+
       '</button> con cargador y cede '+(r.own.length>1?'una de sus cocheras ('+r.own.join(" o ")+')':'la '+r.own[0])+'.</li>';}).join("")+'</ul>';
   }
+  if(routesOn())sh+='<p class="evp-sum" style="margin-top:8px"><b>Tendidos: '+f1(routeTotal())+' m</b> desde las bandejas hasta los '+S.rows.length+' cargadores (línea verde).</p>';
   if(fondo.length)sh+='<p class="evp-sum" style="margin-top:8px">Se tocan solo por el fondo, sin contar como contiguas: '+
     fondo.map(function(c){return c.a+'–'+c.b}).join(", ")+'.</p>';
   $("evp-sum").innerHTML=sh;
@@ -863,7 +908,7 @@ function renderPanel(){
     return '<tr data-apt="'+r.u+'"><td><button type="button" class="apt" data-apt="'+r.u+'">'+unitLabel(r.u)+'</button></td><td>'+chip(b)+'</td><td class="n">'+st+'</td></tr>';
   }).join("");
 }
-["A","B"].forEach(function(s){$("sc-"+s).addEventListener("click",function(){scen=s;buildProp();renderPanel();drawEvp();paint();});});
+["A","B"].forEach(function(s){$("sc-"+s).addEventListener("click",function(){scen=s;buildProp();renderPanel();drawEvp();drawRoutes();layers();paint();});});
 function panelClick(e){
   var c=e.target.closest(".chip");if(c){select("bay",c.getAttribute("data-n"),true);return;}
   var a=e.target.closest(".apt");if(a)select("apt",a.getAttribute("data-apt"),true);
@@ -887,6 +932,7 @@ $("atab").addEventListener("click",panelClick);$("evp-card").addEventListener("c
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><line x1="2" y1="7" x2="26" y2="7" stroke="var(--conf)" stroke-width="1.4" stroke-dasharray="3 2.5"/></svg>',"Cargadores que se tocan por el fondo"],
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="5" width="28" height="4" fill="var(--tray)"/></svg>',"Bandeja eléctrica (EL-01)"],
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="5" width="28" height="4" fill="var(--tray-new)"/></svg>',"Bandeja propuesta"],
+    ['<svg viewBox="0 0 28 14" aria-hidden="true"><path d="M2 3H20V11" fill="none" stroke="var(--route)" stroke-width="1.6"/><circle cx="20" cy="11" r="2.4" fill="var(--route)"/></svg>',"Tendido a cargador propuesto"],
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="4" width="28" height="6" fill="var(--wall-ext)"/></svg>',"Muro perimetral"],
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="5" width="28" height="4" fill="var(--wall)"/></svg>',"Muro interior"],
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="4" width="28" height="6" fill="var(--panel)" stroke="var(--wall-ext)" stroke-width=".8"/>'+
@@ -945,7 +991,16 @@ $("atab").addEventListener("click",panelClick);$("evp-card").addEventListener("c
     changes:["Bandeja propuesta de 38,2 m, recta y vertical, desde el frente de la cochera 65 hasta el fondo de las 57 y 78.",
       "Pasa por las divisorias 64/69, 62/71 y 57/78. Como la 57/78 está corrida 50 cm respecto de las otras dos, la recta va por el medio (x = 34,82 m), a 25 cm de cada una.",
       "Arranca sobre la bandeja de 150 × 65 que llega a la sala de medidores de la Torre A y cruza la de 300 × 65 del núcleo de la Torre A.",
-      "Nueva capa «Bandeja propuesta (rojo)», que se puede ocultar. Sección y altura a definir."]}];
+      "Nueva capa «Bandeja propuesta (rojo)», que se puede ocultar. Sección y altura a definir."]},
+   {v:"v7",date:"16-10-2026",title:"Tendidos a cargadores",ev:true,prop:true,units:true,evp:"v4",trays:true,trayn:true,routes:true,
+    summary:"Línea verde fina desde una bandeja hasta cada cargador propuesto, con el recorrido más directo y sin chocar con columnas ni locales.",
+    changes:["Un tendido por cada cargador propuesto (amarillo). No se tienden a los verdes existentes.",
+      "Cocheras 81–100: horizontal desde la bandeja roja o la existente más cercana, más un vertical corto donde hace falta (84).",
+      "Cocheras 7–17: horizontal desde la bandeja roja, cruzando la isla por las cocheras y la calle central; la 07 llega con un vertical de 3,6 m porque a su altura están la reserva de agua, el lucernario, el gym y el bicicletero.",
+      "Cocheras 01, 03, 05, 21, 34, 35, 38, 39, 52 y 79: desde la bandeja rosada más próxima.",
+      "Sector intermedio (frente a la bandeja roja): conexiones cortas de 0,2 a 0,7 m; la 25 y la 51 cruzan la calle central.",
+      "Recorridos calculados sobre la geometría real: 10 cm de holgura a columnas, muros, salas, ascensores, escaleras y lucernarios.",
+      "La 19 tiene cargador existente (verde), así que no lleva tendido."]}];
   cur=VERSIONS.length-1;
   renderVersions();
 })();
@@ -981,11 +1036,12 @@ function layers(){
   gEvp.classList.toggle("hidden",!on("l-evp")||!on("l-bays")||!propOn());
   gTray.classList.toggle("hidden",!on("l-tray")||!V().trays);
   gTrayN.classList.toggle("hidden",!on("l-trayn")||!V().trayn);
+  gRoute.classList.toggle("hidden",!on("l-route")||!on("l-evp")||!routesOn());
   document.body.classList.toggle("no-ev",!evOn()||!on("l-ev"));
   document.body.classList.toggle("no-evp",!propOn()||!on("l-evp"));
   $("gridrect").classList.toggle("hidden",!on("l-grid"));
 }
-["l-bays","l-nums","l-apts","l-ev","l-evp","l-med","l-tray","l-trayn","l-blk","l-circ","l-acc","l-walls","l-cols","l-site","l-live","l-grid"].forEach(function(id){
+["l-bays","l-nums","l-apts","l-ev","l-evp","l-med","l-tray","l-trayn","l-route","l-blk","l-circ","l-acc","l-walls","l-cols","l-site","l-live","l-grid"].forEach(function(id){
   $(id).addEventListener("change",layers);});
 
 /* ---------- vista: zoom y desplazamiento ---------- */
