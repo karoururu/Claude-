@@ -15,7 +15,7 @@
   --unk:#FBE6A6; --unk-line:#A57A00; --unk-ink:#6E5100;
   --med:#DCCFF3; --med-line:#5B3FA0; --med-ink:#3E2879;
   --z-core:#DCE0E7; --z-serv:#D2E1DA; --z-amen:#EFE5D6; --z-bici:#D6EDF2; --z-green:#CFE6C3;
-  --veh:#1F7A4D; --ped:#0E6E92; --sel:#D0284A; --accent:#B4552E;
+  --veh:#1F7A4D; --ped:#0E6E92; --ev:#14A149; --sel:#D0284A; --accent:#B4552E;
   --shadow:0 1px 2px rgba(28,32,30,.06), 0 8px 24px -12px rgba(28,32,30,.18);
   --f-disp:"IBM Plex Sans Condensed","IBM Plex Sans","Arial Narrow",system-ui,sans-serif;
   --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -34,7 +34,7 @@
     --unk:#5E4A12; --unk-line:#E3BC4A; --unk-ink:#FBE6A6;
     --med:#43346E; --med-line:#B9A2F0; --med-ink:#E6DBFF;
     --z-core:#31373F; --z-serv:#2E413A; --z-amen:#463D31; --z-bici:#28474F; --z-green:#344B2D;
-    --veh:#5FCB91; --ped:#5CC3E6; --sel:#FF5C7A; --accent:#E6905F;
+    --veh:#5FCB91; --ped:#5CC3E6; --ev:#4FDB84; --sel:#FF5C7A; --accent:#E6905F;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.6);
     color-scheme:dark;
   }
@@ -51,7 +51,7 @@
   --unk:#5E4A12; --unk-line:#E3BC4A; --unk-ink:#FBE6A6;
   --med:#43346E; --med-line:#B9A2F0; --med-ink:#E6DBFF;
   --z-core:#31373F; --z-serv:#2E413A; --z-amen:#463D31; --z-bici:#28474F; --z-green:#344B2D;
-  --veh:#5FCB91; --ped:#5CC3E6; --sel:#FF5C7A; --accent:#E6905F;
+  --veh:#5FCB91; --ped:#5CC3E6; --ev:#4FDB84; --sel:#FF5C7A; --accent:#E6905F;
   --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.6);
   color-scheme:dark;
 }
@@ -124,7 +124,10 @@ svg#plan.drag{cursor:grabbing}
 .lb-veh{font-family:var(--f-disp);font-weight:700;fill:var(--veh);paint-order:stroke;stroke:var(--panel);stroke-width:.16}
 .lb-ped{font-family:var(--f-disp);font-weight:600;fill:var(--ped);paint-order:stroke;stroke:var(--panel);stroke-width:.16}
 .lb-dirt{font-family:var(--f-mono);fill:var(--ink-3);letter-spacing:.2em}
-#g-labels,#g-walls,#g-cols,#g-sel,#g-acc text,#g-site text{pointer-events:none}
+#g-labels,#g-walls,#g-cols,#g-sel,#g-ev,#g-acc text,#g-site text{pointer-events:none}
+.ev-bolt{fill:var(--ev);stroke:var(--panel);stroke-width:.09;paint-order:stroke;stroke-linejoin:round}
+svg.bolt{width:7px;height:11px;margin-left:3px;vertical-align:-1px;fill:var(--ev)}
+.no-ev .bolt-ui{display:none}
 .hidden{display:none}
 /* panel */
 aside{min-width:0}
@@ -145,7 +148,7 @@ aside{min-width:0}
 .pill{display:inline-block;font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
   padding:2px 6px;border-radius:2px;border:1px solid currentColor;font-weight:500;line-height:1.3}
 .pill.A{color:var(--ta-line)} .pill.B{color:var(--tb-line)} .pill.free{color:var(--free-ink)} .pill.unk{color:var(--unk-line)}
-.pill.med{color:var(--med-line)} .pill.rot{color:var(--ped)} .pill.int{color:var(--accent)} .pill.live{color:var(--accent)}
+.pill.med{color:var(--med-line)} .pill.ev{color:var(--ev)} .pill.rot{color:var(--ped)} .pill.int{color:var(--accent)} .pill.live{color:var(--accent)}
 .chips{display:flex;flex-wrap:wrap;gap:4px}
 .chip{font:inherit;font-family:var(--f-mono);font-size:12px;padding:1px 6px;border-radius:2px;cursor:pointer;
   border:1px solid var(--rule-strong);background:var(--panel);color:var(--ink);font-variant-numeric:tabular-nums}
@@ -175,7 +178,10 @@ table.at tr.on td{background:color-mix(in srgb,var(--sel) 10%,transparent)}
 .lay input{accent-color:var(--ped);width:15px;height:15px;margin:0}
 .lg{display:grid;grid-template-columns:28px 1fr;gap:7px 9px;font-size:12.5px;color:var(--ink-2);align-items:center}
 .lg svg{display:block;width:28px;height:14px}
-.vitem{padding:10px 13px}
+.vitem{display:block;width:100%;text-align:left;font:inherit;cursor:pointer;border:none;border-left:3px solid transparent;
+  background:none;color:inherit;padding:10px 13px;border-bottom:1px solid var(--rule)}
+.vitem:hover{background:var(--paper-2)}
+.vitem.on{border-left-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)}
 .vitem .top{display:flex;align-items:baseline;gap:8px}
 .vitem .vn{font-family:var(--f-mono);font-weight:500;font-size:12.5px}
 .vitem .vd{font-family:var(--f-mono);font-size:10.5px;color:var(--ink-3);margin-left:auto;white-space:nowrap}
@@ -207,7 +213,7 @@ table.at tr.on td{background:color-mix(in srgb,var(--sel) 10%,transparent)}
     <dl><dt>Nivel de piso</dt><dd>−2,30</dd></dl>
     <dl><dt>Escala origen</dt><dd>1:100</dd></dl>
     <dl><dt>Asignación</dt><dd>2023.08</dd></dl>
-    <dl><dt>Versiones</dt><dd id="vcount">1</dd></dl>
+    <dl><dt>Versiones</dt><dd id="vcount">2</dd></dl>
   </div>
 </header>
 
@@ -223,7 +229,7 @@ para ver todas sus cocheras.</p>
     <div class="plan">
       <div class="plan-bar">
         <span class="ttl">Sub-suelo · cocheras</span>
-        <span class="vchip" id="vchip">v1</span>
+        <span class="vchip" id="vchip">v2</span>
         <div class="seg" role="group" aria-label="Filtrar cocheras">
           <button type="button" id="f-all" data-f="all" aria-pressed="true">Todas</button>
           <button type="button" id="f-A" data-f="A" aria-pressed="false">Torre A</button>
@@ -278,6 +284,7 @@ para ver todas sus cocheras.</p>
           <g id="g-sel"></g>
           <g id="g-labels"></g>
           <g id="g-live" class="hidden"></g>
+          <g id="g-ev"></g>
           <g id="g-deco"></g>
         </g>
       </svg>
@@ -301,6 +308,12 @@ para ver todas sus cocheras.</p>
           <li>Torre A arriba, Torre B abajo; las cocheras con apartamento A o B se colorean según la torre.</li>
           <li>Sobre los bordes superior e inferior el perímetro no es muro: son rejillas de iluminación y ventilación.</li>
           <li>Hacia la izquierda y la derecha el muro perimetral contiene terreno sin excavar (retiro posterior y frontal de 7 m).</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Agregado en v2</h3>
+        <ul>
+          <li>Cargador eléctrico instalado en las cocheras 17, 19, 29, 30, 32, 42, 43 y 50, marcadas con un rayo verde. El dato no figura en el PDF: lo informaste vos.</li>
         </ul>
       </div>
       <div>
@@ -334,6 +347,7 @@ para ver todas sus cocheras.</p>
         <label><input type="checkbox" id="l-bays" checked> Cocheras</label>
         <label><input type="checkbox" id="l-nums" checked> Número de cochera</label>
         <label><input type="checkbox" id="l-apts" checked> Apartamento asignado</label>
+        <label><input type="checkbox" id="l-ev" checked> Cargadores eléctricos</label>
         <label><input type="checkbox" id="l-med" checked> Salas de medidores</label>
         <label><input type="checkbox" id="l-blk" checked> Otras áreas (bloques)</label>
         <label><input type="checkbox" id="l-circ" checked> Circulación vehicular y rampas</label>
@@ -378,6 +392,9 @@ function rsBox(rs){var b=[1e9,1e9,-1e9,-1e9];rs.forEach(function(r){b[0]=Math.mi
   b[2]=Math.max(b[2],r[2]);b[3]=Math.max(b[3],r[3]);});return b;}
 function pts(p){return p.map(function(q){return q[0]+","+q[1]}).join(" ");}
 
+var EV={"17":1,"19":1,"29":1,"30":1,"32":1,"42":1,"43":1,"50":1};
+var BOLT="M6 0L0 9H4.5L3 16L10 6H5.5L7.5 0Z";
+var BOLT_UI='<svg class="bolt bolt-ui" viewBox="0 0 10 16" aria-hidden="true"><path d="'+BOLT+'"/></svg>';
 var GROUPS={1:"Batería perimetral, lado Norte",2:"Isla central, frente Norte",3:"Isla central, cabecera Torre A",
   4:"Patio central, lado Norte",5:"Cabecera Torre B, lado Norte",6:"Cabecera Torre B, lado Tajes",
   7:"Patio central, lado Tajes",8:"Isla central, frente Tajes",9:"Batería perimetral, lado Máximo Tajes"};
@@ -386,7 +403,7 @@ BAYS.forEach(function(b){
   BY[b.n]=b;
   b.st=b.apt==="LIBRE"?"free":(b.apt==="?"?"unk":b.apt.charAt(0));
   b.w=b.r[2]-b.r[0];b.h=b.r[3]-b.r[1];b.area=b.w*b.h;
-  b.ancho=b.e==="t"?b.w:b.h;b.largo=b.e==="t"?b.h:b.w;
+  b.ancho=b.e==="t"?b.w:b.h;b.largo=b.e==="t"?b.h:b.w;b.ev=!!EV[b.n];
   if(b.st==="A"||b.st==="B")(APTS[b.apt]=APTS[b.apt]||[]).push(b);
 });
 var APT_KEYS=Object.keys(APTS).sort();
@@ -403,7 +420,7 @@ var TYPE_NAME={med:"Sala de medidores",core:"Núcleo de circulación",serv:"Serv
 
 /* ---------- dibujo ---------- */
 var gSite=$("g-site"),gR=$("g-ramps"),gB=$("g-blocks"),gBay=$("g-bays"),gAcc=$("g-acc"),gL=$("g-labels"),
-    gSel=$("g-sel"),gLive=$("g-live"),gDeco=$("g-deco"),gGr=$("g-grill");
+    gSel=$("g-sel"),gLive=$("g-live"),gDeco=$("g-deco"),gGr=$("g-grill"),gEv=$("g-ev");
 $("g-circ").setAttribute("d",G.circ);$("g-green").setAttribute("d",G.green);
 $("g-wint").setAttribute("d",G.wint);$("g-wext").setAttribute("d",G.wext);$("g-cols").setAttribute("d",G.cols);
 
@@ -465,10 +482,13 @@ BAYS.forEach(function(b){
   if(b.e==="r"){nx=r[2]-.22;anc="end";}else{nx=r[0]+.22;anc="start";}
   txt(gNum,nx,r[1]+.72,b.n,"lb-num",.6,anc);
   var cx=(r[0]+r[2])/2,cy=(r[1]+r[3])/2+(b.h>3.2?.15:.42);
-  if(b.e!=="t"){cx+= (b.e==="r"?-.35:.35);}
+  if(b.e!=="t"){cx+= (b.e==="r"?-.35:.35)*(EV[b.n]?-1:1);}
   if(b.st==="free")txt(gApt,cx,cy+.25,"LIBRE","lb-apt s-free",.62);
   else if(b.st==="unk")txt(gApt,cx,cy+.2,"SIN RÓTULO","lb-apt s-unk",.5);
   else txt(gApt,cx,cy+.33,b.apt,"lb-apt s-"+b.st,.92);
+  if(b.ev){var bx=b.e==="r"?r[0]+.26:r[2]-.26-.9,s2=.09;
+    var gb=el("g",{"data-ev":b.n,transform:"translate("+bx.toFixed(2)+" "+(r[1]+.2).toFixed(2)+") scale("+s2+")"},gEv);
+    el("path",{d:BOLT,"class":"ev-bolt","stroke-width":1.4},gb);}
   if(b.live){var x=b.e==="r"?r[0]+.12:r[2]-.12,s=b.e==="r"?1:-1;
     el("path",{d:"M"+x+" "+(r[3]-.12)+"l"+(s*.8)+" 0l"+(-s*.8)+" -.8Z",fill:"var(--accent)"},gLive);}
 });
@@ -527,6 +547,8 @@ function paint(){
     var dim=!bayOk(b)||(apt&&b.apt!==apt)||(state.k==="bay"&&!apt&&b.n!==state.id);
     bayNode[b.n].classList.toggle("dim",!!dim);
   });
+  var evs=gEv.childNodes;for(var e2=0;e2<evs.length;e2++){var eb=BY[evs[e2].getAttribute("data-ev")];
+    evs[e2].classList.toggle("dim",!!(!bayOk(eb)||(apt&&eb.apt!==apt)||(state.k==="bay"&&!apt&&eb.n!==state.id)));}
   ["lb-nums","lb-apts"].forEach(function(id){
     var kids=$(id).childNodes;
     for(var i=0;i<kids.length;i++){var b=BAYS[i];
@@ -550,18 +572,19 @@ function paint(){
   info();
 }
 
-function chip(b){return '<button type="button" class="chip '+b.st+'" data-n="'+b.n+'">'+b.n+'</button>';}
+function chip(b){return '<button type="button" class="chip '+b.st+'" data-n="'+b.n+'"'+(b.ev?' title="Con cargador eléctrico"':'')+'>'+b.n+(b.ev?BOLT_UI:'')+'</button>';}
 function pill(st){return {A:'<span class="pill A">Torre A</span>',B:'<span class="pill B">Torre B</span>',
   free:'<span class="pill free">Libre</span>',unk:'<span class="pill unk">Sin rótulo</span>'}[st];}
 function info(){
   var I=$("info"),h="";
   if(state.k==="bay"){
     var b=BY[state.id],sib=(b.st==="A"||b.st==="B")?APTS[b.apt]:[b];
-    h='<div class="nm">Cochera '+b.n+' '+pill(b.st)+'</div><dl>'+
+    h='<div class="nm">Cochera '+b.n+' '+pill(b.st)+(b.ev&&evOn()?' <span class="pill ev">Cargador eléctrico</span>':'')+'</div><dl>'+
       '<dt>Apartamento</dt><dd>'+(b.st==="A"||b.st==="B"?'<button type="button" class="apt" data-apt="'+b.apt+'">'+b.apt+'</button>':
         (b.st==="free"?"Libre, sin asignar":"Sin apartamento en el plano"))+'</dd>'+
       '<dt>Medidas</dt><dd>'+f2(b.ancho)+' × '+f2(b.largo)+' m</dd>'+
       '<dt>Superficie</dt><dd>'+f1(b.area)+' m²</dd>'+
+      (evOn()?'<dt>Cargador</dt><dd style="font-family:var(--f-body)">'+(b.ev?'Sí, instalado':'No')+'</dd>':'')+
       '<dt>Ubicación</dt><dd style="font-family:var(--f-body)">'+GROUPS[b.g]+'</dd>'+
       (sib.length>1?'<dt>Del mismo apto.</dt><dd><div class="chips">'+sib.filter(function(x){return x!==b}).map(chip).join("")+'</div></dd>':'')+
       '</dl>'+(b.live?'<p class="src"><span class="pill live">Rótulo editado</span> El apartamento de esta cochera es texto editado sobre la lámina original: probablemente se reasignó en la actualización de 2023.</p>':'');
@@ -600,6 +623,20 @@ function select(k,id,reveal){
     if(!inView(bb))fitTo(bb,7);}
 }
 
+var VERSIONS=[],cur=0;
+function evOn(){return !!(VERSIONS[cur]&&VERSIONS[cur].ev);}
+function renderVersions(){
+  $("vcount").textContent=VERSIONS.length;$("vchip").textContent=VERSIONS[cur].v;
+  var h="";
+  for(var i=VERSIONS.length-1;i>=0;i--){var x=VERSIONS[i];
+    h+='<button type="button" class="vitem'+(i===cur?' on':'')+'" data-v="'+i+'"><div class="top"><span class="vn">'+x.v+'</span><span class="vd">'+x.date+
+      '</span></div><div class="vt">'+x.title+'</div><div style="font-size:12px;color:var(--ink-2);margin-top:3px">'+x.summary+'</div></button>';
+    if(i===cur)h+='<div class="vchg"><h3>Cambios en '+x.v+(i>0?' respecto de '+VERSIONS[i-1].v:'')+'</h3><ul>'+
+      x.changes.map(function(c){return '<li>'+c+'</li>'}).join("")+'</ul></div>';}
+  $("vlist").innerHTML=h;
+}
+$("vlist").addEventListener("click",function(e){var b=e.target.closest(".vitem");if(!b)return;
+  cur=+b.getAttribute("data-v");renderVersions();layers();paint();});
 /* ---------- panel ---------- */
 (function(){
   var cnt={A:0,B:0,free:0,unk:0};BAYS.forEach(function(b){cnt[b.st]++});
@@ -611,6 +648,7 @@ function select(k,id,reveal){
     '<li><b>'+cnt.free+'</b><span>libres</span></li>'+
     '<li><b>'+cnt.unk+'</b><span>sin rótulo (n.º 59)</span></li>'+
     '<li><b>'+APT_KEYS.length+'</b><span>apartamentos con cochera</span></li>'+
+    '<li class="bolt-ui"><svg class="bolt" viewBox="0 0 10 16" aria-hidden="true" style="width:9px;height:14px;align-self:center"><path d="'+BOLT+'"/></svg><b>'+Object.keys(EV).length+'</b><span>con cargador eléctrico</span></li>'+
     '<li><span class="sw" style="background:var(--med);border-color:var(--med-line)"></span><b>'+meds+'</b><span>salas de medidores</span></li>'+
     '<li><b>2</b><span>rampas desde Máximo Tajes</span></li>';
   function bar(n,c){return '<i style="width:'+n+'%;background:var(--'+c+')"></i>';}
@@ -651,6 +689,7 @@ function select(k,id,reveal){
     [sw("var(--free)","var(--free-line)",1),"Cochera libre"],
     [sw("var(--unk)","var(--unk-line)"),"Cochera sin rótulo"],
     [sw("var(--med)","var(--med-line)"),"Sala de medidores"],
+    ['<svg viewBox="0 0 28 14" aria-hidden="true"><g transform="translate(10.5 0) scale(.86)"><path d="'+BOLT+'" fill="var(--ev)"/></g></svg>',"Cochera con cargador eléctrico"],
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="4" width="28" height="6" fill="var(--wall-ext)"/></svg>',"Muro perimetral"],
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="5" width="28" height="4" fill="var(--wall)"/></svg>',"Muro interior"],
     ['<svg viewBox="0 0 28 14" aria-hidden="true"><rect x="0" y="4" width="28" height="6" fill="var(--panel)" stroke="var(--wall-ext)" stroke-width=".8"/>'+
@@ -667,18 +706,22 @@ function select(k,id,reveal){
   ];
   $("legend").innerHTML=lg.map(function(r){return r[0]+'<span>'+r[1]+'</span>';}).join("");
 
-  var V=[{v:"v1",date:"16-10-2026",title:"Primera lectura de los garajes",
+  VERSIONS=[{v:"v1",date:"16-10-2026",title:"Primera lectura de los garajes",ev:false,
     summary:"Cocheras, apartamentos, medidores, muros e ingresos tomados de «Garages actualizados» 2023.08.",
     changes:["100 cocheras dibujadas con los límites reales del vector y numeradas 01–100.",
       "Apartamento asignado a cada cochera: "+(cnt.A+cnt.B)+" asignadas ("+cnt.A+" Torre A, "+cnt.B+" Torre B), "+cnt.free+" libres y la 59 sin rótulo.",
       "Dos salas de medidores: junto a la cochera 65 (Torre A) y debajo de la 80 (Torre B).",
       "Muro perimetral separado de los muros interiores, con las rejillas de ventilación superior e inferior; 203 columnas.",
       "Ingresos: dos rampas desde Máximo Tajes (15 % y 19 %), cuatro ascensores y dos escaleras.",
-      "Resto de los locales como bloques: núcleos, gym, laundry, vestuarios, reserva de agua, bomba de incendio, corrientes débiles, bicicleteros y lucernarios."]}];
-  $("vcount").textContent=V.length;
-  $("vlist").innerHTML=V.map(function(x){return '<div class="vitem"><div class="top"><span class="vn">'+x.v+'</span><span class="vd">'+x.date+
-    '</span></div><div class="vt">'+x.title+'</div><div style="font-size:12px;color:var(--ink-2);margin-top:3px">'+x.summary+'</div></div>'+
-    '<div class="vchg"><h3>Contenido de '+x.v+'</h3><ul>'+x.changes.map(function(c){return '<li>'+c+'</li>'}).join("")+'</ul></div>';}).join("");
+      "Resto de los locales como bloques: núcleos, gym, laundry, vestuarios, reserva de agua, bomba de incendio, corrientes débiles, bicicleteros y lucernarios."]},
+   {v:"v2",date:"16-10-2026",title:"Cargadores eléctricos",ev:true,
+    summary:"Rayo verde en las 8 cocheras que ya tienen cargador eléctrico, en una capa que se puede ocultar.",
+    changes:["Cargador eléctrico en las cocheras 17, 19, 29, 30, 32, 42, 43 y 50.",
+      "Por torre: Torre B 6 (17 B108, 19 B203, 29 B107, 30 B008, 42 B007, 50 B106) y Torre A 2 (32 A103, 43 A205).",
+      "Nueva capa «Cargadores eléctricos» y el dato en la ficha de cada cochera y en la lista de apartamentos.",
+      "Las cocheras y asignaciones no cambian respecto de v1."]}];
+  cur=VERSIONS.length-1;
+  renderVersions();
 })();
 
 /* filtros y búsqueda */
@@ -708,9 +751,11 @@ function layers(){
   gAcc.classList.toggle("hidden",!on("l-acc"));$("lb-acc").classList.toggle("hidden",!on("l-acc"));
   $("g-walls").classList.toggle("hidden",!on("l-walls"));$("g-cols").classList.toggle("hidden",!on("l-cols"));
   gSite.classList.toggle("hidden",!on("l-site"));gLive.classList.toggle("hidden",!on("l-live"));
+  gEv.classList.toggle("hidden",!on("l-ev")||!on("l-bays")||!evOn());
+  document.body.classList.toggle("no-ev",!evOn()||!on("l-ev"));
   $("gridrect").classList.toggle("hidden",!on("l-grid"));
 }
-["l-bays","l-nums","l-apts","l-med","l-blk","l-circ","l-acc","l-walls","l-cols","l-site","l-live","l-grid"].forEach(function(id){
+["l-bays","l-nums","l-apts","l-ev","l-med","l-blk","l-circ","l-acc","l-walls","l-cols","l-site","l-live","l-grid"].forEach(function(id){
   $(id).addEventListener("change",layers);});
 
 /* ---------- vista: zoom y desplazamiento ---------- */
